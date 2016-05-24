@@ -11,10 +11,10 @@ import com.mycompany.masi.service.UserService;
 import java.util.List;
 import java.util.UUID;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ public class JunitTest {
     @Mock
     private JobOffersRepository jobOffersRepository;
     @Mock
-     private UserAccountRepository userAccountRepository;
+    private UserAccountRepository userAccountRepository;
 
     private JobOffersService jobOffersService;
     private UserService userService;
@@ -38,7 +38,7 @@ public class JunitTest {
     @Before
     public void setUp() {
         jobOffersService = new JobOffersService(jobOffersRepository);
-        userService= new UserService(userAccountRepository);
+        userService = new UserService(userAccountRepository);
     }
 
     @Test
@@ -71,16 +71,28 @@ public class JunitTest {
         // verify repository was called with document
         verify(jobOffersRepository, times(1)).findById(jobOfferId);
     }
-    
-        @Test
+
+    @Test
     public void shouldGetUserExternalDocuments_ListShouldBeNull() {
-        String userLogin="kowalski";
-            stubRepositoryToReturnUser(userLogin);
-        List<ExternalDocument> externalDocuments=userService.getAllUserExternalDocument(userLogin);
+        String userLogin = "kowalski";
+        stubRepositoryToReturnUser(userLogin);
+        List<ExternalDocument> externalDocuments = userService.getAllUserExternalDocument(userLogin);
 
         // verify repository was called with document
         verify(userAccountRepository, times(1)).findByLogin(userLogin);
         assertThat("Returned external documents list should be null", externalDocuments, is(empty()));
+    }
+
+    @Test
+    public void shouldCheckUserExternalDocumentExist_FalseShouldBeReturned() {
+        String userLogin = "kowalski";
+        String name = "Świadectwo maturalne";
+        stubRepositoryToReturnUserWithExternalDocument(userLogin);
+        boolean returnValue = userService.existExternalDocumentByNameForUser(userLogin, name);
+
+        // verify repository was called with document
+        verify(userAccountRepository, times(1)).findByLogin(userLogin);
+        assertFalse("Returned value should be false", returnValue);
     }
 
     private JobOffer stubRepositoryToReturnAddedJobOffer(JobOffer jobOffer) {
@@ -95,8 +107,13 @@ public class JunitTest {
         return jobOffer;
     }
 
-        private void stubRepositoryToReturnUser(String userLogin) {
-        final UserAccount userAccount=  TestUtils.creteUser();
+    private void stubRepositoryToReturnUser(String userLogin) {
+        final UserAccount userAccount = TestUtils.creteUser();
+        when(userAccountRepository.findByLogin(userLogin)).thenReturn(userAccount);
+    }
+
+    private void stubRepositoryToReturnUserWithExternalDocument(String userLogin) {
+        final UserAccount userAccount = TestUtils.creteUserWithExternalDocument();
         when(userAccountRepository.findByLogin(userLogin)).thenReturn(userAccount);
     }
 }

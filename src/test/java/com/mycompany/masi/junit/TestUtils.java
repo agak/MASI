@@ -21,14 +21,25 @@ public class TestUtils {
     }
 
     public static UserAccount creteUser() {
+        UserAccount userAccount = new UserAccount(UUID.randomUUID().toString(), "kowalski", UUID.randomUUID().toString(), "Jan", "Kowalski");
+        List<Skill> skills = new ArrayList();
+        skills.add(new Skill(UUID.randomUUID().toString(), "Java", "Język programowania", 40, null, null));
+        List<ExternalDocument> externalDocuments = new ArrayList();
+        CurriculumVitae curriculumVitae = new CurriculumVitae(UUID.randomUUID().toString(), skills, externalDocuments);
+        userAccount.setCurriculumVitaes(curriculumVitae);
+        return userAccount;
+    }
+
+    public static UserAccount creteUserWithExternalDocument() {
         List<String> permission = new ArrayList();
         permission.add("kowalski");
         List<ExternalDocument> externalDocuments = new ArrayList();
-        //externalDocuments.add(new ExternalDocument(UUID.randomUUID().toString(), "Dyplom ukończenia Politechniki Łodzkiej", "Dyplom ukończenia szkoły wyższej", "/document/kowalskiDyplom", permission));
+        externalDocuments.add(new ExternalDocument(UUID.randomUUID().toString(), "Dyplom ukończenia Politechniki Łodzkiej", "Dyplom ukończenia szkoły wyższej", "/document/kowalskiDyplom", permission));
+        UserAccount userAccount = new UserAccount(UUID.randomUUID().toString(), "kowalski", UUID.randomUUID().toString(), "Jan", "Kowalski");
         List<Skill> skills = new ArrayList();
-        skills.add(new Skill( UUID.randomUUID().toString(), "Java", "Język programowania", 40, null, null));
+        skills.add(new Skill(UUID.randomUUID().toString(), "Java", "Język programowania", 40, null, null));
         CurriculumVitae curriculumVitae = new CurriculumVitae(UUID.randomUUID().toString(), skills, externalDocuments);
-        UserAccount userAccount = new UserAccount("Jan", "Kowalski", new Date(1990, 1, 1), curriculumVitae);
+        userAccount.setCurriculumVitaes(curriculumVitae);
         return userAccount;
     }
 }

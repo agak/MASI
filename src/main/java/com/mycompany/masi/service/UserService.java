@@ -20,8 +20,19 @@ public class UserService extends AccountService{
     }
   
     public List<ExternalDocument> getAllUserExternalDocument(String userLogin){
+        //TODO stworzenie metody to realizującej  w UserAcountRepository
         UserAccount userAccount= userAccountRepository.findByLogin(userLogin);
         return userAccount.getCurriculumVitaes().getExternalDocuments();
     }
     
+    public boolean existExternalDocumentByNameForUser(String userLogin, String name){
+         //TODO stworzenie metody to realizującej  w UserAcountRepository
+         UserAccount userAccount= userAccountRepository.findByLogin(userLogin);
+         for (ExternalDocument externalDocument : userAccount.getCurriculumVitaes().getExternalDocuments()) {
+            if(externalDocument.getName().equals(name)){
+             return true;
+            }
+        }
+        return false;
+    }
 }

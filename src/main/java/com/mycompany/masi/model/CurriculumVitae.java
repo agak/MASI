@@ -30,6 +30,6 @@ public class CurriculumVitae implements Serializable {
     @ManyToMany
     @JoinTable(name = "curriculumVitaes_skills", joinColumns = @JoinColumn(name = "curriculumVitae_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"))
     private List<Skill> skills;
-    @OneToMany(mappedBy = "curriculumVitae")
+    @OneToMany()
     private List<ExternalDocument> externalDocuments;
 }

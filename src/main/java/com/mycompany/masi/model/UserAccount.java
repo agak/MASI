@@ -13,9 +13,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 @Entity
 public class UserAccount extends Account {
+
+    public UserAccount(String id, String login, String hashPassword, String firstName, String secondName) {
+        this.id = id;
+        this.login = login;
+        this.hashPassword = hashPassword;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        isBloced = false;
+
+    }
 
     protected String firstName;
     protected String secondName;

@@ -20,9 +20,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class ExternalDocument implements Serializable {
 
-    @ManyToOne
-    private CurriculumVitae curriculumVitae;
-
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -30,6 +27,6 @@ public class ExternalDocument implements Serializable {
     private String name;
     private String type;
     private String locationUrl;
-    @ElementCollection(targetClass=String.class)
+    @ElementCollection(targetClass = String.class)
     private List<String> permission;
 }
