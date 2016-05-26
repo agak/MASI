@@ -1,7 +1,6 @@
 package com.mycompany.masi.model;
 
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -17,14 +16,13 @@ import lombok.Setter;
 @Entity
 public class UserAccount extends Account {
 
-    public UserAccount(String id, String login, String hashPassword, String firstName, String secondName) {
-        this.id = id;
+    public UserAccount(Long idAccount, String login, String hashPassword, String firstName, String secondName) {
+        this.idAccount = idAccount;
         this.login = login;
         this.hashPassword = hashPassword;
         this.firstName = firstName;
         this.secondName = secondName;
         isBloced = false;
-
     }
 
     protected String firstName;

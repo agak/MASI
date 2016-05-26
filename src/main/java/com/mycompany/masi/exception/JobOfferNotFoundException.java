@@ -11,7 +11,7 @@ public class JobOfferNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory.getLogger(JobOfferNotFoundException.class);
 
-    public JobOfferNotFoundException(String jobOfferId) {
+    public JobOfferNotFoundException(long jobOfferId) {
         super("Could not find job offer '" + jobOfferId + "'.");
         LOGGER.error("Could not find job offer '" + jobOfferId + "'.");
     }

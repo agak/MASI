@@ -34,16 +34,16 @@ public class JobOffersController {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List <JobOffer> getAllJobOffers() {
+    public List<JobOffer> getAllJobOffers() {
         LOGGER.info("Start getAllJobOffers :: ");
         return jobOffersService.getAllJobOffers();
     }
-    
-        @RequestMapping(value = "/getOne", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/getOne", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public JobOffer getJobOfferById(@RequestParam(value = "jobOfferId", required = true)String jobOfferId ) {
+    public JobOffer getJobOfferById(@RequestParam(value = "jobOfferId", required = true) long jobOfferId) {
         LOGGER.info("Start getJobOfferById :: ");
-         return jobOffersService.getJobOfferById(jobOfferId);
+        return jobOffersService.getJobOfferById(jobOfferId);
 
     }
 

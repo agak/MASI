@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -15,8 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
-import org.jsondoc.core.annotation.ApiObjectField;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,20 +24,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
 public class JobOffer implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idJobOffer;
     private String name;
     private String description;
+
     @ManyToMany
     @JoinTable(name = "jobOffers_skills",
             joinColumns = @JoinColumn(name = "jobOffer_id",
-                    referencedColumnName = "id"),
+                    referencedColumnName = "idJobOffer"),
             inverseJoinColumns = @JoinColumn(name = "skill_id",
-                    referencedColumnName = "id"))
+                    referencedColumnName = "idSkill"))
+
     private List<Skill> skills;
     private String location;
 

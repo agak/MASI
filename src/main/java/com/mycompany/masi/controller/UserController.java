@@ -18,7 +18,6 @@ public class UserController {
 
     private final UserService userService;
 
-    
     @Inject
     public UserController(final UserService userService) {
         this.userService = userService;
