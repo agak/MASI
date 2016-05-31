@@ -2,6 +2,7 @@ package com.mycompany.masi.tests;
 
 import com.mycompany.masi.model.CurriculumVitae;
 import com.mycompany.masi.model.ExternalDocument;
+import com.mycompany.masi.model.JobApplication;
 import com.mycompany.masi.model.JobOffer;
 import com.mycompany.masi.model.Skill;
 import com.mycompany.masi.model.UserAccount;
@@ -9,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestUtils {
-
+private static final Logger LOGGER = LoggerFactory.getLogger(TestUtils.class);
     public static Skill createSkill(){
         Skill skill= new Skill((long)1, "Java", "Język programowania", 40, null, null);
         return skill;
@@ -46,5 +49,11 @@ public class TestUtils {
         CurriculumVitae curriculumVitae = new CurriculumVitae((long)1, skills, externalDocuments);
         userAccount.setCurriculumVitaes(curriculumVitae);
         return userAccount;
+    }
+
+    static JobApplication createJobApplication() {
+        Date now = new Date();
+       JobApplication jobApplication=new JobApplication((long) 1, (long) 1, (long) 1, "Jestem zainteresowany ta ofertą", now);
+       return jobApplication;
     }
 }

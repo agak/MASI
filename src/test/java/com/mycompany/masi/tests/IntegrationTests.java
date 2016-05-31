@@ -1,6 +1,7 @@
 package com.mycompany.masi.tests;
 
 import com.mycompany.masi.Application;
+import com.mycompany.masi.model.JobApplication;
 import com.mycompany.masi.repository.JobOffersRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,8 +42,9 @@ public class IntegrationTests {
     @Autowired
     private SkillRepository skillRepository;
 
-    JobOffer jobOffer;
+    private JobOffer jobOffer;
     private Skill skill;
+    private JobApplication jobApplication;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegrationTests.class);
 
@@ -53,6 +55,7 @@ public class IntegrationTests {
         LOGGER.info("setUp");
         skill = TestUtils.createSkill();
         jobOffer = TestUtils.creteJobOffer(skill);
+        jobApplication = TestUtils.createJobApplication();
         //jobOffersRepository.deleteAll();
         //  skillRepository.deleteAll();
         skillRepository.save(skill);
@@ -84,9 +87,26 @@ public class IntegrationTests {
 
     @Test
     public void canGetJobOfferById() {
-        String URI = "http://localhost:" + port + "/jobOffers/getOne?jobOfferId=1";
+        long jobOfferId = 1;
+        String URI = "http://localhost:" + port + "/jobOffers/getOne?jobOfferId=" + jobOfferId;
 
         JobOffer givenJobOffer = restTemplate.getForObject(URI, JobOffer.class);
+        Assert.assertEquals(jobOffer.getName(), givenJobOffer.getName());
+        Assert.assertEquals(jobOffer.getDescription(), givenJobOffer.getDescription());
+        Assert.assertEquals(jobOffer.getIdJobOffer(), givenJobOffer.getIdJobOffer());
+        Assert.assertEquals(jobOffer.getIndustry(), givenJobOffer.getIndustry());
+        Assert.assertEquals(jobOffer.getLocation(), givenJobOffer.getLocation());
+        Assert.assertEquals(skill.getCetegory(), givenJobOffer.getSkills().get(0).getCetegory());
+        Assert.assertEquals(skill.getName(), givenJobOffer.getSkills().get(0).getName());
+        Assert.assertEquals(skill.getPoints(), givenJobOffer.getSkills().get(0).getPoints());
+        Assert.assertEquals(skill.getIdSkill(), givenJobOffer.getSkills().get(0).getIdSkill());
+    }
+
+    @Test
+    public void canAddJobOffer() {
+        String URI = "http://localhost:" + port + "/jobOffers/add";
+
+        JobOffer givenJobOffer = restTemplate.postForObject(URI, jobOffer, JobOffer.class);
         Assert.assertEquals(jobOffer.getName(), givenJobOffer.getName());
         Assert.assertEquals(jobOffer.getDescription(), givenJobOffer.getDescription());
         Assert.assertEquals(jobOffer.getIdJobOffer(), givenJobOffer.getIdJobOffer());
@@ -97,5 +117,19 @@ public class IntegrationTests {
         Assert.assertEquals(skill.getName(), givenJobOffer.getSkills().get(0).getName());
         Assert.assertEquals(skill.getPoints(), givenJobOffer.getSkills().get(0).getPoints());
         Assert.assertEquals(skill.getIdSkill(), givenJobOffer.getSkills().get(0).getIdSkill());
+    }
+
+    @Test
+    public void canjJobApply() {
+        long userId = 1;
+        long jobOfferId = 1;
+        String userMessage = "Jestem zainteresowany ta ofertą";
+        String URI = "http://localhost:" + port + "/jobOffers/jobApply?userId=" + userId + "&jobOfferId=" + jobOfferId + "&userMessage=" + userMessage;
+
+        JobApplication givenJobApplication = restTemplate.getForObject(URI, JobApplication.class);
+        Assert.assertEquals(jobApplication.getIdUser(), givenJobApplication.getIdUser());
+        Assert.assertEquals(jobApplication.getIdJobOffer(), givenJobApplication.getIdJobOffer());
+        Assert.assertEquals(jobApplication.getIdJobApplication(), givenJobApplication.getIdJobApplication());
+        Assert.assertEquals(jobApplication.getUserMessage(), givenJobApplication.getUserMessage());
     }
 }

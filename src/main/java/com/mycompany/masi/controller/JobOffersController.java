@@ -1,5 +1,6 @@
 package com.mycompany.masi.controller;
 
+import com.mycompany.masi.model.JobApplication;
 import com.mycompany.masi.model.JobOffer;
 import com.mycompany.masi.service.JobOffersService;
 import java.util.List;
@@ -52,6 +53,14 @@ public class JobOffersController {
     public JobOffer addJobOffer(@Validated @RequestBody(required = true) JobOffer jobOffer) {
         LOGGER.info("Start addJobOffer  :: ");
         return jobOffersService.addJobOffer(jobOffer);
+
+    }
+
+    @RequestMapping(value = "/jobApply", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public JobApplication jobApply(@RequestParam(value = "userId", required = true) long userId, @RequestParam(value = "jobOfferId", required = true) long jobOfferId, @RequestParam(value = "userMessage", required = true) String userMessage) {
+        LOGGER.info("Start jobApply  :: ");
+        return jobOffersService.jobApply(userId, jobOfferId, userMessage);
 
     }
 }

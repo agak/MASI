@@ -1,9 +1,12 @@
 package com.mycompany.masi.service;
 
 import com.mycompany.masi.exception.JobOfferNotFoundException;
+import com.mycompany.masi.model.JobApplication;
 import com.mycompany.masi.model.JobOffer;
+import com.mycompany.masi.repository.JobApplicationRepository;
 import com.mycompany.masi.repository.JobOffersRepository;
 import com.mycompany.masi.repository.SkillRepository;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
@@ -15,11 +18,13 @@ public class JobOffersService {
 
     private final JobOffersRepository jobOffersRepository;
     private final SkillRepository skillRepository;
+    private final JobApplicationRepository jobApplicationRepository;
 
     @Inject
-    public JobOffersService(final JobOffersRepository jobOffersRepository, final SkillRepository skillRepository) {
+    public JobOffersService(final JobOffersRepository jobOffersRepository, final SkillRepository skillRepository, final JobApplicationRepository jobApplicationRepository) {
         this.jobOffersRepository = jobOffersRepository;
         this.skillRepository = skillRepository;
+        this.jobApplicationRepository = jobApplicationRepository;
     }
 
     public JobOffer addJobOffer(JobOffer jobOffer) {
@@ -36,6 +41,12 @@ public class JobOffersService {
 
     public List<JobOffer> getAllJobOffers() {
         return jobOffersRepository.findAll();
+    }
+
+    public JobApplication jobApply(long userId, long jobOfferId, String userMessage) {
+        JobApplication jobApplication = new JobApplication(jobOfferId, userId, userMessage);
+        jobApplicationRepository.save(jobApplication);
+        return jobApplication;
     }
 
 }
