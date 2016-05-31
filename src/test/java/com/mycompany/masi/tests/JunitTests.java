@@ -5,6 +5,7 @@ import com.mycompany.masi.model.ExternalDocument;
 import com.mycompany.masi.model.JobOffer;
 import com.mycompany.masi.model.Skill;
 import com.mycompany.masi.model.UserAccount;
+import com.mycompany.masi.repository.CurriculumVitaeRepository;
 import com.mycompany.masi.repository.JobApplicationRepository;
 import com.mycompany.masi.repository.JobOffersRepository;
 import com.mycompany.masi.repository.SkillRepository;
@@ -34,9 +35,11 @@ public class JunitTests {
     @Mock
     private UserAccountRepository userAccountRepository;
     @Mock
-    SkillRepository skillRepository;
+    private SkillRepository skillRepository;
     @Mock
-    JobApplicationRepository jobApplicationRepository;
+    private JobApplicationRepository jobApplicationRepository;
+    @Mock 
+    private CurriculumVitaeRepository curriculumVitaeRepository;
 
     private JobOffersService jobOffersService;
     private UserService userService;
@@ -44,7 +47,7 @@ public class JunitTests {
     @Before
     public void setUp() {
         jobOffersService = new JobOffersService(jobOffersRepository, skillRepository, jobApplicationRepository);
-        userService = new UserService(userAccountRepository);
+        userService = new UserService(userAccountRepository, curriculumVitaeRepository);
     }
 
     @Test

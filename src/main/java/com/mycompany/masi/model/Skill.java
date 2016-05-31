@@ -30,6 +30,7 @@ public class Skill implements Serializable {
     private String cetegory;
     private int points;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "skills")
     private List<CurriculumVitae> curriculumVitaes;
     @JsonIgnore

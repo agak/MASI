@@ -45,8 +45,7 @@ public class JobOffersService {
 
     public JobApplication jobApply(long userId, long jobOfferId, String userMessage) {
         JobApplication jobApplication = new JobApplication(jobOfferId, userId, userMessage);
-        jobApplicationRepository.save(jobApplication);
-        return jobApplication;
+        return jobApplicationRepository.save(jobApplication);
     }
 
 }
