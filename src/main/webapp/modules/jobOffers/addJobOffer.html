@@ -1,12 +1,14 @@
 <h4 >Dodaj ofertę pracy</h4>
-
+<form ng-submit="addJobOffer()">
 <label for="name"  ng-bind=" 'Tytuł'"></label>
-<input type="text" id="name" ng-attr-placeholder="{{ 'Tytuł' | translate }}" ng-model="jobOffer.name" name="name" />
+<input type="text" id="name" ng-attr-placeholder=" 'Tytuł' " ng-model="jobOffer.name" name="name" />
 
 <label for="description"  ng-bind=" 'Opis'"></label>
-<input type="text" id="description" ng-attr-placeholder="{{ 'Opis' | translate }}" ng-model="jobOffer.description" name="description" />
+<input type="text" id="description" ng-attr-placeholder=" 'Opis' " ng-model="jobOffer.description" name="description" />
 
 <label for="location"  ng-bind=" 'Miejsce'"></label>
-<input type="text" id="location" ng-attr-placeholder="{{ 'Miejsce' | translate }}" ng-model="jobOffer.location" name="location" />
+<input type="text" id="location" ng-attr-placeholder=" 'Miejsce' " ng-model="jobOffer.location" name="location" />
 
 <label for="skills"  ng-bind=" 'Umiejętności'"></label>
+<input type="submit" value="Dodaj ofertę" />
+</form>
