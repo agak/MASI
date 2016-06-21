@@ -8,12 +8,18 @@
         <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css"> 
     </head>
     <body>
-  <header id="headerDiv" data-ui-view="header" ></header>	
+  <header id="headerDiv" data-ui-view="header" ></header>
+  
         <div id="bodyDiv" data-ui-view="main">
-            <div id="menu-panel" data-ui-view="menu" class="col-md-2" ></div>
-            <div id="list-panel" data-ui-view="list" class="col-md-10"></div>
+            <div class="row">
+                <div id="menu-panel" data-ui-view="menu" class="col-md-12" ></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div id="list-panel" data-ui-view="list" class="col-md-10"></div>
+            </div>
         </div>
-         
+
    
        
         <script src="assets/angular.min.js"></script>
