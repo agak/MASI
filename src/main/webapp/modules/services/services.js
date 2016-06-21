@@ -10,6 +10,11 @@ angular.module('dataservices', [])
                 dataFactory.getAllJobOffers = function () {
                     return $http.get(urlBase + '/jobOffers/getAll');
                 };
+                
+                dataFactory.addJobOffer = function (jobOffer) {
+                    console.log("serwis");
+                    return $http.post(urlBase + '/jobOffers/add',jobOffer);
+                };
 
                 dataFactory.login = function (credentials) {
                     console.dir(credentials);

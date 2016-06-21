@@ -30,6 +30,19 @@ angular.module('jobbox', ['jobbox.mainControllers', 'ngRoute', 'ui.router', 'dat
                             controller: 'HeaderCtrl'
                         }
                     }
+                    }).state('main.addJobOffer', {
+                    url: 'addJobOffer.html',
+                    cache: false,
+                    views: {
+                        'menu': {
+                            templateUrl: 'modules/menu/menu.html',
+                            controller: 'MenuCtrl'
+                        },
+                        'list': {
+                            templateUrl: 'modules/jobOffers/addJobOffer.html',
+                            controller: 'JobOffersCtrl'
+                        }
+                    }
                 }).state('main.userAccount', {
                     url: 'userAccount.html',
                     cache: false,

@@ -11,6 +11,17 @@ mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactor
                 console.log(data);
             });
         };
+        
+        $scope.addJobOffer = function () {
+            console.log("cokolwiek test");
+             console.dir($scope.jobOffer);
+            DataFactory.addJobOffer($scope.jobOffer)
+                    .success(function (data, status, headers, config) {
+                        $state.go('main.jobOffers');
+                    }).error(function (data, status, headers, config) {
+                console.log(data);
+            });
+        };
 
             $scope.getAllJobOffers();
 
