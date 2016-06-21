@@ -3,11 +3,11 @@
 mainControllers.controller('HeaderCtrl', ['$scope', '$rootScope', 'DataFactory', '$http', '$state', '$uibModal',
     function ($scope, $rootScope, DataFactory, $http, $state, $uibModal) {
 
-       // $scope.loginAccount = {};
-       // $scope.loginAccount.state = false;
+        // $scope.loginAccount = {};
+        // $scope.loginAccount.state = false;
         $rootScope.loginAccount = {};
         $rootScope.loginAccount.state = false;
-        
+
         $scope.loginModal = function () {
             $uibModal.open({
                 templateUrl: 'modules/header/login.html',
@@ -19,7 +19,7 @@ mainControllers.controller('HeaderCtrl', ['$scope', '$rootScope', 'DataFactory',
                     }
                 }
             }).result.then(function (result) {
-              //  $scope.loginAccount = result;
+                //  $scope.loginAccount = result;
                 $rootScope.loginAccount = result;
             });
         };
@@ -33,7 +33,7 @@ mainControllers.controller('HeaderCtrl', ['$scope', '$rootScope', 'DataFactory',
             };
 
             $scope.performLogin = function () {
-
+console.log("przed"+$scope.loginAccount.msg );
                 DataFactory.login($scope.account)
                         .success(function (data, status, headers, config) {
                             if (angular.isObject(data)) {
@@ -46,7 +46,9 @@ mainControllers.controller('HeaderCtrl', ['$scope', '$rootScope', 'DataFactory',
                                 console.log("Error signing in");
                             }
                         }).error(function (data, status, headers, config) {
-                    console.log(data);
+                    if (status === 401) {
+                        $scope.loginAccount.msg = "Bląd logowania";
+                    }
                 });
             };
         }
