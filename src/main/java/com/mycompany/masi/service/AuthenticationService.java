@@ -45,11 +45,11 @@ public class AuthenticationService implements UserDetailsService {
   
     @Override
 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+            LOGGER.info("Username in loadUserByUsername "+ username);
         Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 
         UserAccount userAccount = userAccountRepository.findOneByLogin(username);
         CompanyAccount companyAccount = companyAccountRepository.findOneByLogin(username);
-        LOGGER.info("username"+ username);
         
         String login = "";
         String password = "";

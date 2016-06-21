@@ -58,7 +58,8 @@ angular.module('jobbox', ['jobbox.mainControllers', 'ngRoute', 'ui.router', 'dat
                     }
                 });
                 $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-                $urlRouterProvider.otherwise('/jobOffers.html');
+                $urlRouterProvider.otherwise('/');
+               //  $urlRouterProvider.otherwise('/jobOffers.html');
             }])
         .controller('MainCtrl', ['$state',
             function ($state) {

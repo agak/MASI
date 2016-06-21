@@ -37,9 +37,9 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/login")
-  //  @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public Principal  login( Principal account) {
-        LOGGER.info("Start login  :: "+account);
+        LOGGER.info("Start login  :: "+account.getName());
       return  account;
 
     }

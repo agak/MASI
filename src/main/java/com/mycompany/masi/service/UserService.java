@@ -23,12 +23,15 @@ public class UserService extends AccountService {
     private final UserAccountRepository userAccountRepository;
     private final CurriculumVitaeRepository curriculumVitaeRepository;
     private final AccountRepository accountRepository;
+    
+       private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(final UserAccountRepository userAccountRepository, final CurriculumVitaeRepository curriculumVitaeRepository, final AccountRepository accountRepository) {
+    public UserService(final UserAccountRepository userAccountRepository, final CurriculumVitaeRepository curriculumVitaeRepository, final AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
         this.userAccountRepository = userAccountRepository;
         this.curriculumVitaeRepository = curriculumVitaeRepository;
         this.accountRepository = accountRepository;
+        this.passwordEncoder=passwordEncoder;
     }
 
     public List<ExternalDocument> getAllUserExternalDocument(String userLogin) {
@@ -55,10 +58,9 @@ public class UserService extends AccountService {
     //mockujemy istnienie kont na potrzeby testów- pózniej napisać prawdziwą metode rejestracji
     @PostConstruct
     public void register() {
-           PasswordEncoder encoder = new BCryptPasswordEncoder();
-        Account user = new UserAccount(null, "KOWALSKI", encoder.encode("asdf"), "Jan", "Kowalski");
-        Account user2 = new UserAccount(null, "nowak", "aa", "Adam", "Nowak");
-        Account company = new CompanyAccount(null, "SERRA", encoder.encode("qwerty"), "SERRA COMPANY");
+        Account user = new UserAccount(null, "KOWALSKI", passwordEncoder.encode("asdf"), "Jan", "Kowalski");
+        Account user2 = new UserAccount(null, "nowak", passwordEncoder.encode("aa"), "Adam", "Nowak");
+        Account company = new CompanyAccount(null, "SERRA", passwordEncoder.encode("qwerty"), "SERRA COMPANY");
         accountRepository.save(user);
         accountRepository.save(user2);
         accountRepository.save(company);
