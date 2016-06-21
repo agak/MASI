@@ -1,6 +1,6 @@
    
-    <div class="col-md-11">joBBox </div>
-    <div class="col-md-11" ng-show="$root.loginAccount.state" >Witaj {{$root.loginAccount.name}} </div>
+    <div class="col-md-11" id="headerJoBBox">joBBox </div>
+    <div class="col-md-11" ng-show="$root.loginAccount.state" id="witajHeader">Witaj <span class="witajLogin">{{$root.loginAccount.name}}</span> </div>
 <div class="col-md-1" ng-hide="$root.loginAccount.state">
     <button type="button" class="btn btn-grey-filters btn-block " 
             style="margin-top: .4em; margin-bottom: 1em;" ng-bind="'Zarejestruj'" ng-click="stan()">				
