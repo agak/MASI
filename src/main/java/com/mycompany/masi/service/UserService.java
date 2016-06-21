@@ -61,10 +61,14 @@ public class UserService extends AccountService {
     public void register() {
         Account user = new UserAccount(null, "kowal", passwordEncoder.encode("asdf"), "Jan", "Kowalski");
         Account user2 = new UserAccount(null, "nowak", passwordEncoder.encode("aa"), "Adam", "Nowak");
+        Account user3 = new UserAccount(null, "malinowski", passwordEncoder.encode("qq"), "Grzegorz", "Malinowski"); 
+        Account user4 = new UserAccount(null, "jankowska", passwordEncoder.encode("zz"), "Alina", "Jankowska");
         Account company = new CompanyAccount(null, "serra", passwordEncoder.encode("qwerty"), "SERRA COMPANY");
         Account admin = new AdminAccount(null, "admin", passwordEncoder.encode("admin"), "Tadeusz", "Wosiak");
         accountRepository.save(user);
         accountRepository.save(user2);
+        accountRepository.save(user3);
+        accountRepository.save(user4);
         accountRepository.save(company);
         accountRepository.save(admin);
     }
