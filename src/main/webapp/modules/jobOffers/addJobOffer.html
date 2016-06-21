@@ -10,5 +10,12 @@
 <input type="text" id="location" ng-attr-placeholder=" 'Miejsce' " ng-model="jobOffer.location" name="location" />
 
 <label for="skills"  ng-bind=" 'Umiejętności'"></label>
+
+  <select name="skillsSelect" id="skillsSelect" ng-model="skill.selected">
+      <option ng-repeat="skill in allSkills" value="{{skill.idSkill}}">{{skill.name}} - {{skill.cetegory}}</option>
+    </select>
+
+
+
 <input type="submit" value="Dodaj ofertę" />
 </form>

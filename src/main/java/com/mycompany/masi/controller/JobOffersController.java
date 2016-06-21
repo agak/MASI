@@ -2,6 +2,7 @@ package com.mycompany.masi.controller;
 
 import com.mycompany.masi.model.JobApplication;
 import com.mycompany.masi.model.JobOffer;
+import com.mycompany.masi.model.Skill;
 import com.mycompany.masi.service.JobOffersService;
 import java.util.List;
 import javax.inject.Inject;
@@ -62,5 +63,12 @@ public class JobOffersController {
         LOGGER.info("Start jobApply  :: ");
         return jobOffersService.jobApply(userId, jobOfferId, userMessage);
 
+    }
+    
+        @RequestMapping(value = "/getAllSkills", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Skill> getAllSkills() {
+        LOGGER.info("Start getAllSkills :: ");
+        return jobOffersService.getAllSkills();
     }
 }

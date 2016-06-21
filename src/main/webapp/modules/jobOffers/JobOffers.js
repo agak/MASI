@@ -22,7 +22,17 @@ mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactor
                 console.log(data);
             });
         };
+        
+                $scope.getAllSkills = function () {
+            DataFactory.getAllSkills()
+                    .success(function (data, status, headers, config) {
+                        $scope.allSkills = data;
+                    }).error(function (data, status, headers, config) {
+                console.log(data);
+            });
+        };
 
             $scope.getAllJobOffers();
+            $scope.getAllSkills();
 
     }]);

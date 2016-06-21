@@ -68,4 +68,8 @@ public class JobOffersService {
 
     }
 
+    public List<Skill> getAllSkills() {
+        return skillRepository.findAll();
+    }
+
 }

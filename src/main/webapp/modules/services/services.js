@@ -16,6 +16,10 @@ angular.module('dataservices', [])
                     return $http.post(urlBase + '/jobOffers/add', jobOffer);
                 };
 
+                dataFactory.getAllSkills = function () {
+                    return $http.get(urlBase + '/jobOffers/getAllSkills');
+                };
+
                 dataFactory.login = function (credentials) {
                     var headers = credentials ? {
                         authorization: "Basic "
