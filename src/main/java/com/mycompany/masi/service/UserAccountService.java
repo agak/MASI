@@ -5,9 +5,13 @@ import com.mycompany.masi.model.AdminAccount;
 import com.mycompany.masi.model.CompanyAccount;
 import com.mycompany.masi.model.CurriculumVitae;
 import com.mycompany.masi.model.ExternalDocument;
+import com.mycompany.masi.model.LifeEvent;
 import com.mycompany.masi.model.UserAccount;
 import com.mycompany.masi.repository.AccountRepository;
 import com.mycompany.masi.repository.CurriculumVitaeRepository;
+import com.mycompany.masi.repository.ExternalDocumentRepository;
+import com.mycompany.masi.repository.LifeEventRepository;
+import com.mycompany.masi.repository.SkillRepository;
 import com.mycompany.masi.repository.UserAccountRepository;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,20 +23,27 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 @Validated
-public class UserService extends AccountService {
+public class UserAccountService extends AccountService {
 
     private final UserAccountRepository userAccountRepository;
     private final CurriculumVitaeRepository curriculumVitaeRepository;
     private final AccountRepository accountRepository;
-
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+        private final SkillRepository skillRepository;
+         private final LifeEventRepository lifeEventRepository;
+         private final ExternalDocumentRepository externalDocumentRepository;
 
     @Autowired
-    public UserService(final UserAccountRepository userAccountRepository, final CurriculumVitaeRepository curriculumVitaeRepository, final AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+    public UserAccountService(final UserAccountRepository userAccountRepository, final CurriculumVitaeRepository curriculumVitaeRepository, final AccountRepository accountRepository, final PasswordEncoder passwordEncoder,
+           final SkillRepository skillRepository, final LifeEventRepository lifeEventRepository,  ExternalDocumentRepository externalDocumentRepository ) {
         this.userAccountRepository = userAccountRepository;
         this.curriculumVitaeRepository = curriculumVitaeRepository;
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
+        this.skillRepository=skillRepository;
+        this.lifeEventRepository=lifeEventRepository;
+        this.externalDocumentRepository=externalDocumentRepository;
+        
     }
 
     public List<ExternalDocument> getAllUserExternalDocument(String userLogin) {
@@ -52,8 +63,16 @@ public class UserService extends AccountService {
         return false;
     }
 
-    public CurriculumVitae addCv(CurriculumVitae curriculumVitae) {
-        return curriculumVitaeRepository.save(curriculumVitae);
+    public CurriculumVitae addCv(CurriculumVitae curriculumVitae, String login) {
+        CurriculumVitae curriculumVitaeSaved;
+        //skillRepository.save(curriculumVitae.getSkills());
+        externalDocumentRepository.save(curriculumVitae.getExternalDocuments());
+        lifeEventRepository.save(curriculumVitae.getLifeEvents());
+        curriculumVitaeSaved=curriculumVitaeRepository.save(curriculumVitae);
+        UserAccount userAccount=userAccountRepository.findOneByLogin(login);
+        userAccount.setCurriculumVitaes(curriculumVitae);
+        userAccountRepository.save(userAccount);
+        return curriculumVitaeSaved;
     }
 
     //mockujemy istnienie kont na potrzeby testów- pózniej napisać prawdziwą metode rejestracji
@@ -72,4 +91,22 @@ public class UserService extends AccountService {
         accountRepository.save(company);
         accountRepository.save(admin);
     }
+    
+    @Override
+    public Account getLogUser(String login) {
+    return userAccountRepository.findOneByLogin(login);
+    }
+
+    public UserAccount editUser(UserAccount userAccount) {
+      return  userAccountRepository.save(userAccount);
+    }
+
+    public CurriculumVitae getCvByUser(String login) {
+        CurriculumVitae curriculumVitae=null;
+        UserAccount userAccount=userAccountRepository.findOneByLogin(login);
+        if (userAccount.getCurriculumVitaes()!=null){
+            curriculumVitae=curriculumVitaeRepository.findOne(userAccount.getCurriculumVitaes().getIdCurriculumVitae());
+        }
+        return curriculumVitae;
+  }
 }

@@ -32,4 +32,6 @@ public class CurriculumVitae implements Serializable {
     private List<Skill> skills;
     @OneToMany()
     private List<ExternalDocument> externalDocuments;
+        @OneToMany()
+    private List<LifeEvent> lifeEvents;
 }

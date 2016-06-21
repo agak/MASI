@@ -12,8 +12,8 @@ import org.springframework.validation.annotation.Validated;
 @Service
 @Validated
 public abstract class AccountService {
-     @Inject
-         private  AccountRepository accountRepository;
+//     @Inject
+//         private  AccountRepository accountRepository;
     
 //     @Inject
 //    public AccountService (final AccountRepository accountRepository){
@@ -23,6 +23,7 @@ public abstract class AccountService {
 //            System.out.println("CA");
 //    }
 
+    public abstract Account getLogUser(String login) ;
      
 
 }

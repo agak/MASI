@@ -11,7 +11,7 @@ import com.mycompany.masi.repository.JobOffersRepository;
 import com.mycompany.masi.repository.SkillRepository;
 import com.mycompany.masi.repository.UserAccountRepository;
 import com.mycompany.masi.service.JobOffersService;
-import com.mycompany.masi.service.UserService;
+import com.mycompany.masi.service.UserAccountService;
 import java.util.List;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 import org.junit.Before;
@@ -42,12 +42,12 @@ public class JunitTests {
     private CurriculumVitaeRepository curriculumVitaeRepository;
 
     private JobOffersService jobOffersService;
-    private UserService userService;
+    private UserAccountService userService;
 
     @Before
     public void setUp() {
         jobOffersService = new JobOffersService(jobOffersRepository, skillRepository, jobApplicationRepository);
-        userService = new UserService(userAccountRepository, curriculumVitaeRepository);
+        userService = new UserAccountService(userAccountRepository, curriculumVitaeRepository);
     }
 
     @Test

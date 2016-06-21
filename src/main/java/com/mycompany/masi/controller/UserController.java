@@ -2,7 +2,8 @@ package com.mycompany.masi.controller;
 
 import com.mycompany.masi.model.CurriculumVitae;
 import com.mycompany.masi.model.JobApplication;
-import com.mycompany.masi.service.UserService;
+import com.mycompany.masi.model.UserAccount;
+import com.mycompany.masi.service.UserAccountService;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,18 +25,32 @@ public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JobOffersController.class);
 
-    private final UserService userService;
+    private final UserAccountService userService;
 
     @Inject
-    public UserController(final UserService userService) {
+    public UserController(final UserAccountService userService) {
         this.userService = userService;
     }
 
     @RequestMapping(value = "/addCv", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public CurriculumVitae addCv(@Validated @RequestBody(required = true) CurriculumVitae curriculumVitae) {
-        LOGGER.info("Start jobApply  :: ");
-        return userService.addCv(curriculumVitae);
+    public CurriculumVitae addCv(@Validated @RequestBody(required = true) CurriculumVitae curriculumVitae, @RequestParam(value = "login", required = true) String login) {
+        LOGGER.info("Start addCv  :: "+login);
+        return userService.addCv(curriculumVitae, login);
+    }
+    
+        @RequestMapping(value = "/getCv", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public CurriculumVitae getCvByUser(@RequestParam(value = "login", required = true) String login) {
+        LOGGER.info("Start getCv  :: "+login);
+        return userService.getCvByUser(login);
+    }
+
+    @RequestMapping(value = "/editUser", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public UserAccount editUser(@Validated @RequestBody(required = true) UserAccount userAccount) {
+        LOGGER.info("Start editUser  :: ");
+        return userService.editUser(userAccount);
 
     }
 }
