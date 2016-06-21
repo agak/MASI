@@ -1,23 +1,23 @@
-<div class="col-md-2">
+<p>
     <button type="button" class="btn btn-grey-filters btn-block" ng-click="changeState('main.jobOffers')" 
             style="margin-top: .4em; margin-bottom: 1em;" ng-bind="'Oferty pracy'">				
     </button>
-</div>
+</p>
 
-<div class="col-md-2" ng-show="$root.loginAccount.role==='COMPANY_ROLE' || $root.loginAccount.role==='ADMIN_ROLE'">
+<p ng-show="$root.loginAccount.role==='COMPANY_ROLE' || $root.loginAccount.role==='ADMIN_ROLE'">
     <button type="button" class="btn btn-grey-filters btn-block" ng-click="changeState('main.addJobOffer')" 
             style="margin-top: .4em; margin-bottom: 1em;" ng-bind="'Dodaj ofertę'">				
     </button>
-</div>
+</p>
 
-<div class="col-md-2">
+<p>
     <button type="button" class="btn btn-grey-filters btn-block" ng-click="changeState('main.userAccount')" 
             style="margin-top: .4em; margin-bottom: 1em;" ng-bind="'Konto uzytkownika'">				
     </button>
-</div>
+</p>
 
-<div class="col-md-2" ng-show="$root.loginAccount.role==='ADMIN_ROLE'">
+<p ng-show="$root.loginAccount.role==='ADMIN_ROLE'">
     <button type="button" class="btn btn-grey-filters btn-block" 
             style="margin-top: .4em; margin-bottom: 1em;" ng-bind="'Panel administracyjny'">				
     </button>
-</div>
+</p>
