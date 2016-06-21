@@ -3,12 +3,13 @@ package com.mycompany.masi.service;
 import com.mycompany.masi.controller.JobOffersController;
 import com.mycompany.masi.exception.AccountNotFoundException;
 import com.mycompany.masi.model.Account;
+import com.mycompany.masi.model.AdminAccount;
 import com.mycompany.masi.model.CompanyAccount;
 import com.mycompany.masi.model.UserAccount;
 import com.mycompany.masi.repository.AccountRepository;
+import com.mycompany.masi.repository.AdminRepository;
 import com.mycompany.masi.repository.CompanyAccountRepository;
 import com.mycompany.masi.repository.UserAccountRepository;
-import com.mycompany.masi.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,15 +33,15 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService implements UserDetailsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationService.class);
-    
-  @Autowired
-    private UserRepository repository;
 
       @Autowired
     private UserAccountRepository userAccountRepository;
 
     @Autowired
     private CompanyAccountRepository companyAccountRepository;
+    
+    @Autowired
+    AdminRepository adminRepository;
 
   
     @Override
@@ -50,6 +51,7 @@ public UserDetails loadUserByUsername(String username) throws UsernameNotFoundEx
 
         UserAccount userAccount = userAccountRepository.findOneByLogin(username);
         CompanyAccount companyAccount = companyAccountRepository.findOneByLogin(username);
+        AdminAccount adminAccount =adminRepository.findOneByLogin(username);
         
         String login = "";
         String password = "";
@@ -61,6 +63,10 @@ public UserDetails loadUserByUsername(String username) throws UsernameNotFoundEx
             setAuths.add(new SimpleGrantedAuthority("COMPANY_ROLE"));
             login = companyAccount.getLogin();
             password = companyAccount.getPassword();
+                   } else if (adminAccount != null) {
+            setAuths.add(new SimpleGrantedAuthority("ADMIN_ROLE"));
+            login = adminAccount.getLogin();
+            password = adminAccount.getPassword();
         } else {
             throw new AccountNotFoundException(username);
         }

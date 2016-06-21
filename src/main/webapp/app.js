@@ -61,8 +61,11 @@ angular.module('jobbox', ['jobbox.mainControllers', 'ngRoute', 'ui.router', 'dat
                 $urlRouterProvider.otherwise('/');
                //  $urlRouterProvider.otherwise('/jobOffers.html');
             }])
-        .controller('MainCtrl', ['$state',
-            function ($state) {
+        .controller('MainCtrl', ['$state', '$scope', '$rootScope',
+            function ($state, $scope, $rootScope) {
+//        $rootScope.loginAccount = $scope.loginAccount;
+                
+                
             }]);
 
 var mainControllers = angular.module('jobbox.mainControllers', []);

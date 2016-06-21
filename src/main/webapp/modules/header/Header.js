@@ -3,14 +3,12 @@
 mainControllers.controller('HeaderCtrl', ['$scope', '$rootScope', 'DataFactory', '$http', '$state', '$uibModal',
     function ($scope, $rootScope, DataFactory, $http, $state, $uibModal) {
 
-        $scope.loginAccount = {};
-        $scope.loginAccount.state = false;
-
-
-
-
+       // $scope.loginAccount = {};
+       // $scope.loginAccount.state = false;
+        $rootScope.loginAccount = {};
+        $rootScope.loginAccount.state = false;
+        
         $scope.loginModal = function () {
-            console.log("open ");
             $uibModal.open({
                 templateUrl: 'modules/header/login.html',
                 //backdrop: true,
@@ -21,12 +19,9 @@ mainControllers.controller('HeaderCtrl', ['$scope', '$rootScope', 'DataFactory',
                     }
                 }
             }).result.then(function (result) {
-                $scope.loginAccount = result;
-                console.log("res")
-                console.dir(result)
+              //  $scope.loginAccount = result;
+                $rootScope.loginAccount = result;
             });
-
-
         };
 
 
@@ -42,7 +37,6 @@ mainControllers.controller('HeaderCtrl', ['$scope', '$rootScope', 'DataFactory',
                 DataFactory.login($scope.account)
                         .success(function (data, status, headers, config) {
                             if (angular.isObject(data)) {
-                                console.dir(data)
                                 $scope.loginAccount.state = true;
                                 $scope.loginAccount.name = data.name;
                                 $scope.loginAccount.role = data.authorities[0].authority;
