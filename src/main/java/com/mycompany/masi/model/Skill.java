@@ -27,7 +27,7 @@ public class Skill implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSkill;
     private String name;
-    private String cetegory;
+    private String category;
     private int points;
 
     @JsonIgnore

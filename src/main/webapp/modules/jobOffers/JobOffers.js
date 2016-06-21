@@ -1,20 +1,21 @@
 'use strict';
 
-mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactory', '$http', '$state', 
+mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactory', '$http', '$state',
     function ($scope, $rootScope, DataFactory, $http, $state) {
 
         $scope.getAllJobOffers = function () {
             DataFactory.getAllJobOffers()
                     .success(function (data, status, headers, config) {
                         $scope.jobOffersAll = data;
+                console.dir(data);
                     }).error(function (data, status, headers, config) {
                 console.log(data);
             });
         };
-        
+
         $scope.addJobOffer = function () {
             console.log("cokolwiek test");
-             console.dir($scope.jobOffer);
+            console.dir($scope.jobOffer);
             DataFactory.addJobOffer($scope.jobOffer)
                     .success(function (data, status, headers, config) {
                         $state.go('main.jobOffers');
@@ -22,8 +23,8 @@ mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactor
                 console.log(data);
             });
         };
-        
-                $scope.getAllSkills = function () {
+
+        $scope.getAllSkills = function () {
             DataFactory.getAllSkills()
                     .success(function (data, status, headers, config) {
                         $scope.allSkills = data;
@@ -31,11 +32,18 @@ mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactor
                 console.log(data);
             });
         };
-        
-                        $scope.skillSelected = function () {
+        $scope.jobOffer={};
+        $scope.jobOffer.skills = [];
+
+        $scope.skillSelect = function () {
+            $scope.jobOffer.skills.push({
+                idSkill: $scope.skillSelected,
+                name: $scope.allSkills[$scope.skillSelected - 1].name,
+                category: $scope.allSkills[$scope.skillSelected - 1].category
+            } );
         };
 
-            $scope.getAllJobOffers();
-            $scope.getAllSkills();
+        $scope.getAllJobOffers();
+        $scope.getAllSkills();
 
     }]);
