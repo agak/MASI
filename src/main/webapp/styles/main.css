@@ -16,3 +16,12 @@
 .errorMessage{
     color: #ff0000;
 }
+
+.boldLabel{
+    font-weight: bold;
+}
+
+.succesfullyMessage{
+    font-weight: bold;
+    color: #4cae4c;
+}

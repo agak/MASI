@@ -1,21 +1,25 @@
 <div  >
-    <div ng-show="$root.correctlyAddedJobOffer">Poprawnie dodano ofertę pracy</div>
+    <div ng-show="$root.correctlyAddedJobOffer" class="succesfullyMessage">Poprawnie dodano ofertę pracy</div>
     <div ng-repeat="oneJobOffer in jobOffersAll">
         <div class="panel panel-default">
             <div >
-                <span  ng-bind="'Nazwa:'"></span>
+                <span  ng-bind="'Nazwa:'" class="boldLabel"></span>
                 <span  ng-bind="oneJobOffer.name"></span>
+                <p></p>
             </div>
             <div >
-                <span  ng-bind="'Opis stanowiska:'"></span>
-                <span  ng-bind="oneJobOffer.description"></span>
+                <span  ng-bind="'Opis stanowiska:'" class="boldLabel"></span>
+                <p><span  ng-bind="oneJobOffer.description"></span></p>
+                <p></p>
             </div>
             <div >
-                <span  ng-bind="'Lokalizacja:'"></span>
+                <span  ng-bind="'Lokalizacja:'" class="boldLabel"></span>
                 <span  ng-bind="oneJobOffer.location"></span>
+                <p></p>
             </div>
-                        <div >
-                <span  ng-bind="'Umiejętności:'"></span>
+            
+                        <div>
+                <span  ng-bind="'Wymagane umiejętności:'" class="boldLabel"></span>
               <div ng-repeat="skill in oneJobOffer.skills">
       <span  ng-bind="skill.name"></span> - <span  ng-bind="skill.category"></span>  <span>  </span>
      </div>  

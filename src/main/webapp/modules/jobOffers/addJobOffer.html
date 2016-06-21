@@ -1,26 +1,37 @@
 <h4 >Dodaj ofertę pracy</h4>
 <form ng-submit="addJobOffer()">
-<label for="name"  ng-bind=" 'Tytuł'"></label>
-<input type="text" id="name" ng-attr-placeholder=" 'Tytuł' " ng-model="jobOffer.name" name="name" />
+    <div>
+        <label for="name"  ng-bind=" 'Tytuł: '"></label>
+        <input type="text" id="name" ng-attr-placeholder=" 'Tytuł' " ng-model="jobOffer.name" name="name" />
+        <p></p>
+    </div>
+    <div>
+        <label for="description"  ng-bind=" 'Opis: '"></label>
+        <p></p>
+        <textarea name="description" cols="50" rows="7" id="description" ng-attr-placeholder=" 'Opis' " ng-model="jobOffer.description" />Tu wpisz tekst który pojawi się domyślnie</textarea>
+        <p></p>
+    </div>
+    <div>
+        <label for="location"  ng-bind=" 'Miejsce: '"></label>
+        <input type="text" id="location" ng-attr-placeholder=" 'Miejsce' " ng-model="jobOffer.location" name="location" />
+        <p></p>
+    </div>
+    <div>
+        <label for="skills"  ng-bind=" 'Wymagane umiejętności: '"></label>
 
-<label for="description"  ng-bind=" 'Opis'"></label>
-<input type="text" id="description" ng-attr-placeholder=" 'Opis' " ng-model="jobOffer.description" name="description" />
-
-<label for="location"  ng-bind=" 'Miejsce'"></label>
-<input type="text" id="location" ng-attr-placeholder=" 'Miejsce' " ng-model="jobOffer.location" name="location" />
-
-<label for="skills"  ng-bind=" 'Umiejętności'"></label>
-
-  <div ng-repeat="skill in jobOffer.skills">
-      <span  ng-bind="skill.name"></span> - <span  ng-bind="skill.category"></span>  <span>  </span>
-     </div>  
+        <div ng-repeat="skill in jobOffer.skills">
+            <span  ng-bind="skill.name"></span> - <span  ng-bind="skill.category"></span>  <span>  </span>
+        </div>  
+    
       
 
-  <select name="skillsSelect" id="skillsSelect" ng-model="skillSelected" ng-change="skillSelect()">
-      <option ng-repeat="skill in allSkills" value="{{skill.idSkill}}">{{skill.name}} - {{skill.category}}</option>
-    </select>
+        <select name="skillsSelect" id="skillsSelect" ng-model="skillSelected" ng-change="skillSelect()">
+            <option ng-repeat="skill in allSkills" value="{{skill.idSkill}}">{{skill.name}} - {{skill.category}}</option>
+        </select>
+        <p></p>
+    </div>
 
-
-
-<input type="submit" value="Dodaj ofertę" />
+    <div>
+        <input type="submit" value="Dodaj ofertę" />
+    </div>
 </form>
