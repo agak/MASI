@@ -31,6 +31,9 @@ mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactor
                 console.log(data);
             });
         };
+        
+                        $scope.skillSelected = function () {
+        };
 
             $scope.getAllJobOffers();
             $scope.getAllSkills();

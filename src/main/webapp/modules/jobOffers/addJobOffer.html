@@ -11,7 +11,12 @@
 
 <label for="skills"  ng-bind=" 'Umiejętności'"></label>
 
-  <select name="skillsSelect" id="skillsSelect" ng-model="skill.selected">
+  <div ng-repeat="skill in selectedSkills">
+      <span  ng-bind="skill.name"></span> - <span  ng-bind="skill.cetegory"></span>  <span>  </span>
+     </div>  
+      
+
+  <select name="skillsSelect" id="skillsSelect" ng-model="skill.selected" ng-change="skillSelected()">
       <option ng-repeat="skill in allSkills" value="{{skill.idSkill}}">{{skill.name}} - {{skill.cetegory}}</option>
     </select>
 
