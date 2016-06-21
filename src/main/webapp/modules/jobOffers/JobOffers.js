@@ -2,6 +2,7 @@
 
 mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactory', '$http', '$state',
     function ($scope, $rootScope, DataFactory, $http, $state) {
+         //$rootScope.correctlyAddedJobOffer=false;
 
         $scope.getAllJobOffers = function () {
             DataFactory.getAllJobOffers()
@@ -14,10 +15,10 @@ mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactor
         };
 
         $scope.addJobOffer = function () {
-            console.log("cokolwiek test");
             console.dir($scope.jobOffer);
             DataFactory.addJobOffer($scope.jobOffer)
                     .success(function (data, status, headers, config) {
+                        $rootScope.correctlyAddedJobOffer=true;
                         $state.go('main.jobOffers');
                     }).error(function (data, status, headers, config) {
                 console.log(data);

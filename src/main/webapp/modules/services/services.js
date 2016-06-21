@@ -12,7 +12,6 @@ angular.module('dataservices', [])
                 };
 
                 dataFactory.addJobOffer = function (jobOffer) {
-                    console.log("serwis");
                     return $http.post(urlBase + '/jobOffers/add', jobOffer);
                 };
 
