@@ -7,8 +7,8 @@
         <h4 class="text-middle-grey" ng-bind="'Zaloguj sie'"></h4>
         <br>		
 
-        <input type="login" id="inputLogin" placeholder="Login" required="required" autofocus="autofocus" ng-model="account.username" name="inputLogin" />
-        <input type="password" id="inputPassword" ng-attr-placeholder="{{ 'Password'}}" required="required" ng-model="account.password" name="inputPassword" />
+        <input type="login" id="inputLogin" ng-attr-placeholder="{{'Login'}}"  autofocus="autofocus" ng-model="account.username" name="inputLogin" required >
+        <input type="password" id="inputPassword" ng-attr-placeholder="{{ 'Password'}}"  ng-model="account.password" name="inputPassword" required >
         <buton type="submit" ng-click="performLogin()" ng-enter="performLogin()" class="btn" ng-bind="'Zaloguj'"/>
     </form>
 </div>

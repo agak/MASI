@@ -33,7 +33,6 @@ mainControllers.controller('HeaderCtrl', ['$scope', '$rootScope', 'DataFactory',
             };
 
             $scope.performLogin = function () {
-console.log("przed"+$scope.loginAccount.msg );
                 DataFactory.login($scope.account)
                         .success(function (data, status, headers, config) {
                             if (angular.isObject(data)) {
