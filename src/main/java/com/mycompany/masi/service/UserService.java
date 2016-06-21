@@ -1,40 +1,48 @@
 package com.mycompany.masi.service;
 
+import com.mycompany.masi.model.Account;
+import com.mycompany.masi.model.CompanyAccount;
 import com.mycompany.masi.model.CurriculumVitae;
 import com.mycompany.masi.model.ExternalDocument;
 import com.mycompany.masi.model.UserAccount;
+import com.mycompany.masi.repository.AccountRepository;
 import com.mycompany.masi.repository.CurriculumVitaeRepository;
 import com.mycompany.masi.repository.UserAccountRepository;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 @Validated
-public class UserService extends AccountService{
-    
+public class UserService extends AccountService {
+
     private final UserAccountRepository userAccountRepository;
-     private final  CurriculumVitaeRepository curriculumVitaeRepository;
+    private final CurriculumVitaeRepository curriculumVitaeRepository;
+    private final AccountRepository accountRepository;
 
     @Autowired
-    public UserService(final UserAccountRepository userAccountRepository, final  CurriculumVitaeRepository curriculumVitaeRepository){
-        this.userAccountRepository=userAccountRepository;
-        this.curriculumVitaeRepository=curriculumVitaeRepository;
+    public UserService(final UserAccountRepository userAccountRepository, final CurriculumVitaeRepository curriculumVitaeRepository, final AccountRepository accountRepository) {
+        this.userAccountRepository = userAccountRepository;
+        this.curriculumVitaeRepository = curriculumVitaeRepository;
+        this.accountRepository = accountRepository;
     }
-  
-    public List<ExternalDocument> getAllUserExternalDocument(String userLogin){
+
+    public List<ExternalDocument> getAllUserExternalDocument(String userLogin) {
         //TODO stworzenie metody to realizującej  w UserAcountRepository
-        UserAccount userAccount= userAccountRepository.findByLogin(userLogin);
+        UserAccount userAccount = userAccountRepository.findOneByLogin(userLogin);
         return userAccount.getCurriculumVitaes().getExternalDocuments();
     }
-    
-    public boolean existExternalDocumentByNameForUser(String userLogin, String name){
-         //TODO stworzenie metody to realizującej  w UserAcountRepository
-         UserAccount userAccount= userAccountRepository.findByLogin(userLogin);
-         for (ExternalDocument externalDocument : userAccount.getCurriculumVitaes().getExternalDocuments()) {
-            if(externalDocument.getName().equals(name)){
-             return true;
+
+    public boolean existExternalDocumentByNameForUser(String userLogin, String name) {
+        //TODO stworzenie metody to realizującej  w UserAcountRepository
+        UserAccount userAccount = userAccountRepository.findOneByLogin(userLogin);
+        for (ExternalDocument externalDocument : userAccount.getCurriculumVitaes().getExternalDocuments()) {
+            if (externalDocument.getName().equals(name)) {
+                return true;
             }
         }
         return false;
@@ -42,5 +50,17 @@ public class UserService extends AccountService{
 
     public CurriculumVitae addCv(CurriculumVitae curriculumVitae) {
         return curriculumVitaeRepository.save(curriculumVitae);
+    }
+
+    //mockujemy istnienie kont na potrzeby testów- pózniej napisać prawdziwą metode rejestracji
+    @PostConstruct
+    public void register() {
+           PasswordEncoder encoder = new BCryptPasswordEncoder();
+        Account user = new UserAccount(null, "KOWALSKI", encoder.encode("asdf"), "Jan", "Kowalski");
+        Account user2 = new UserAccount(null, "nowak", "aa", "Adam", "Nowak");
+        Account company = new CompanyAccount(null, "SERRA", encoder.encode("qwerty"), "SERRA COMPANY");
+        accountRepository.save(user);
+        accountRepository.save(user2);
+        accountRepository.save(company);
     }
 }

@@ -5,23 +5,26 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="assets/bootstrap.min.css"> 
+        <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css"> 
     </head>
     <body>
-
+  <header id="headerDiv" data-ui-view="header" ></header>	
         <div id="bodyDiv" data-ui-view="main">
             <div id="menu-panel" data-ui-view="menu" class="col-md-2" ></div>
             <div id="list-panel" data-ui-view="list" class="col-md-10"></div>
         </div>
-
-
+         
+   
+       
         <script src="assets/angular.min.js"></script>
         <script src="assets/angular-route.min.js"></script>
         <script src="assets/angular-ui-router.min.js"></script>
+        <script src="assets/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
         <script src="app.js"></script>
         <script src="modules/services/services.js"></script>  
         <script src="modules/jobOffers/JobOffers.js"></script> 
         <script src="modules/menu/Menu.js"></script> 
+                <script src="modules/header/Header.js"></script> 
         <script src="modules/userAccount/UserAccount.js"></script>
     </body>
 </html>

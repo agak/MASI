@@ -1,5 +1,5 @@
 'use strict';
-angular.module('jobbox', ['jobbox.mainControllers', 'ngRoute', 'ui.router', 'dataservices'])
+angular.module('jobbox', ['jobbox.mainControllers', 'ngRoute', 'ui.router', 'dataservices', 'ui.bootstrap'])
         .config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
             function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 $stateProvider.state('main', {
@@ -7,6 +7,10 @@ angular.module('jobbox', ['jobbox.mainControllers', 'ngRoute', 'ui.router', 'dat
                     views: {
                         'main': {
                             controller: 'MainCtrl'
+                        },
+                         'header': {
+                            templateUrl: 'modules/header/header.html',
+                            controller: 'HeaderCtrl'
                         }
                     }
                 }).state('main.jobOffers', {
@@ -18,8 +22,12 @@ angular.module('jobbox', ['jobbox.mainControllers', 'ngRoute', 'ui.router', 'dat
                             controller: 'MenuCtrl'
                         },
                         'list': {
-                            templateUrl: 'modules/jobOffers/jobOffers.html',
+                            templateUrl: 'modules/jobOffers/addJobOffer.html',
                             controller: 'JobOffersCtrl'
+                        },
+                         'header': {
+                            templateUrl: 'modules/header/header.html',
+                            controller: 'HeaderCtrl'
                         }
                     }
                 }).state('main.userAccount', {
@@ -36,11 +44,7 @@ angular.module('jobbox', ['jobbox.mainControllers', 'ngRoute', 'ui.router', 'dat
                         }
                     }
                 });
-//$httpProvider.defaults.useXDomain = true;
-//$httpProvider.defaults.withCredentials = true;
-//delete $httpProvider.defaults.headers.common["X-Requested-With"];
-//$httpProvider.defaults.headers.common["Accept"] = "application/json";
-//$httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+                $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
                 $urlRouterProvider.otherwise('/jobOffers.html');
             }])
         .controller('MainCtrl', ['$state',

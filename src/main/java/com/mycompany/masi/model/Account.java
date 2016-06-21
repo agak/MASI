@@ -25,12 +25,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 @MappedSuperclass
 public abstract class Account implements  Serializable {
     private static final long serialVersionUID = 1L;
+    
+    public Account(String login, String password){
+        this.login=login;
+        this.password=password;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long idAccount;
     protected String login;
-    protected String hashPassword;
+    protected String password;
     protected String adress;
     protected String telephone;
     protected boolean isBloced;

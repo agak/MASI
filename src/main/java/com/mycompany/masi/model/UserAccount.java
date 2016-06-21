@@ -16,17 +16,17 @@ import lombok.Setter;
 @Entity
 public class UserAccount extends Account {
 
-    public UserAccount(Long idAccount, String login, String hashPassword, String firstName, String secondName) {
+    public UserAccount(Long idAccount, String login, String password, String firstName, String secondName) {
         this.idAccount = idAccount;
         this.login = login;
-        this.hashPassword = hashPassword;
+        this.password = password;
         this.firstName = firstName;
         this.secondName = secondName;
         isBloced = false;
     }
 
-    protected String firstName;
-    protected String secondName;
+    private String firstName;
+    private String secondName;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthDate;
     @OneToOne
