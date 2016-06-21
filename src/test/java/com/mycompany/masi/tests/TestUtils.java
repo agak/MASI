@@ -35,7 +35,7 @@ public class TestUtils {
         List<Skill> skills = new ArrayList();
         skills.add(createSkill());
         List<ExternalDocument> externalDocuments = new ArrayList();
-        CurriculumVitae curriculumVitae = new CurriculumVitae((long) 1, skills, externalDocuments);
+        CurriculumVitae curriculumVitae = new CurriculumVitae((long) 1, skills, externalDocuments, null);
         userAccount.setCurriculumVitaes(curriculumVitae);
         return userAccount;
     }
@@ -48,7 +48,7 @@ public class TestUtils {
         UserAccount userAccount = new UserAccount((long) 1, "kowalski", UUID.randomUUID().toString(), "Jan", "Kowalski");
         List<Skill> skills = new ArrayList();
         skills.add(createSkill());
-        CurriculumVitae curriculumVitae = new CurriculumVitae((long) 1, skills, externalDocuments);
+        CurriculumVitae curriculumVitae = new CurriculumVitae((long) 1, skills, externalDocuments, null);
         userAccount.setCurriculumVitaes(curriculumVitae);
         return userAccount;
     }
@@ -64,7 +64,7 @@ public class TestUtils {
         skills.add(createSkill());
         List<ExternalDocument> externalDocuments = new ArrayList();
         externalDocuments.add(createExternalDocument());
-        CurriculumVitae curriculumVitae = new CurriculumVitae((long) 1, skills, externalDocuments);
+        CurriculumVitae curriculumVitae = new CurriculumVitae((long) 1, skills, externalDocuments, null);
         return curriculumVitae;
     }
     
@@ -73,5 +73,11 @@ public class TestUtils {
         permission.add("kowalski");
         ExternalDocument externalDocument = new  ExternalDocument((long) 1, "Dyplom ukończenia Politechniki Łodzkiej", "Dyplom ukończenia szkoły wyższej", "/document/kowalskiDyplom", permission);
         return externalDocument;
+    }
+
+    static UserAccount createUserAccount() {
+        UserAccount userAccount=new UserAccount((long) 1, "kowal", "asdf", "Jan", "Kowalski");
+        userAccount.setCurriculumVitaes(createCurriculumVitae());
+        return userAccount;
     }
 }

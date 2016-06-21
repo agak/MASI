@@ -5,9 +5,12 @@ import com.mycompany.masi.model.ExternalDocument;
 import com.mycompany.masi.model.JobOffer;
 import com.mycompany.masi.model.Skill;
 import com.mycompany.masi.model.UserAccount;
+import com.mycompany.masi.repository.AccountRepository;
 import com.mycompany.masi.repository.CurriculumVitaeRepository;
+import com.mycompany.masi.repository.ExternalDocumentRepository;
 import com.mycompany.masi.repository.JobApplicationRepository;
 import com.mycompany.masi.repository.JobOffersRepository;
+import com.mycompany.masi.repository.LifeEventRepository;
 import com.mycompany.masi.repository.SkillRepository;
 import com.mycompany.masi.repository.UserAccountRepository;
 import com.mycompany.masi.service.JobOffersService;
@@ -26,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JunitTests {
@@ -38,8 +42,16 @@ public class JunitTests {
     private SkillRepository skillRepository;
     @Mock
     private JobApplicationRepository jobApplicationRepository;
-    @Mock 
+    @Mock
     private CurriculumVitaeRepository curriculumVitaeRepository;
+    @Mock
+    private AccountRepository accountRepository;
+    @Mock
+    private PasswordEncoder passwordEncoder;
+    @Mock
+    private LifeEventRepository lifeEventRepository;
+    @Mock
+    private ExternalDocumentRepository externalDocumentRepository;
 
     private JobOffersService jobOffersService;
     private UserAccountService userService;
@@ -47,7 +59,7 @@ public class JunitTests {
     @Before
     public void setUp() {
         jobOffersService = new JobOffersService(jobOffersRepository, skillRepository, jobApplicationRepository);
-        userService = new UserAccountService(userAccountRepository, curriculumVitaeRepository);
+        userService = new UserAccountService(userAccountRepository, curriculumVitaeRepository, accountRepository, passwordEncoder, skillRepository, lifeEventRepository, externalDocumentRepository);
     }
 
     @Test
@@ -89,7 +101,7 @@ public class JunitTests {
         List<ExternalDocument> externalDocuments = userService.getAllUserExternalDocument(userLogin);
 
         // verify repository was called with document
-        verify(userAccountRepository, times(1)).findByLogin(userLogin);
+        verify(userAccountRepository, times(1)).findOneByLogin(userLogin);
         assertThat("Returned external documents list should be null", externalDocuments, is(empty()));
     }
 
@@ -101,7 +113,7 @@ public class JunitTests {
         boolean returnValue = userService.existExternalDocumentByNameForUser(userLogin, name);
 
         // verify repository was called with document
-        verify(userAccountRepository, times(1)).findByLogin(userLogin);
+        verify(userAccountRepository, times(1)).findOneByLogin(userLogin);
         assertFalse("Returned value should be false", returnValue);
     }
 
@@ -120,11 +132,11 @@ public class JunitTests {
 
     private void stubRepositoryToReturnUser(String userLogin) {
         final UserAccount userAccount = TestUtils.creteUser();
-        when(userAccountRepository.findByLogin(userLogin)).thenReturn(userAccount);
+        when(userAccountRepository.findOneByLogin(userLogin)).thenReturn(userAccount);
     }
 
     private void stubRepositoryToReturnUserWithExternalDocument(String userLogin) {
         final UserAccount userAccount = TestUtils.creteUserWithExternalDocument();
-        when(userAccountRepository.findByLogin(userLogin)).thenReturn(userAccount);
+        when(userAccountRepository.findOneByLogin(userLogin)).thenReturn(userAccount);
     }
 }

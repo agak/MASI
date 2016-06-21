@@ -18,8 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import com.mycompany.masi.model.JobOffer;
 import com.mycompany.masi.model.Skill;
+import com.mycompany.masi.model.UserAccount;
+import com.mycompany.masi.repository.CurriculumVitaeRepository;
 import com.mycompany.masi.repository.ExternalDocumentRepository;
 import com.mycompany.masi.repository.SkillRepository;
+import com.mycompany.masi.repository.UserAccountRepository;
 import java.util.List;
 import org.junit.Assert;
 import org.springframework.boot.test.TestRestTemplate;
@@ -47,12 +50,19 @@ public class IntegrationTests {
 
     @Autowired
     private ExternalDocumentRepository externalDocumentRepository;
+    
+      @Autowired
+    private UserAccountRepository userAccountRepository;
+      
+            @Autowired
+    private CurriculumVitaeRepository curriculumVitaeRepository;
 
     private JobOffer jobOffer;
     private Skill skill;
     private JobApplication jobApplication;
     private CurriculumVitae curriculumVitae;
     private ExternalDocument externalDocument;
+    private UserAccount userAccount;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegrationTests.class);
 
@@ -66,12 +76,16 @@ public class IntegrationTests {
         jobApplication = TestUtils.createJobApplication();
         curriculumVitae = TestUtils.createCurriculumVitae();
         externalDocument = TestUtils.createExternalDocument();
+        userAccount= TestUtils.createUserAccount();
+        
 
         //jobOffersRepository.deleteAll();
         //  skillRepository.deleteAll();
         skillRepository.save(skill);
         externalDocumentRepository.save(externalDocument);
         jobOffersRepository.save(jobOffer);
+        curriculumVitaeRepository.save(curriculumVitae);
+        userAccountRepository.save(userAccount);
         //TODO save jobApplication and curriculumVitae and other??
     }
 
@@ -92,7 +106,7 @@ public class IntegrationTests {
         Assert.assertEquals(jobOffer.getIndustry(), givenJobOfferList.get(0).getIndustry());
         //Assert.assertEquals(jobOffer.getInsertDate(), givenJobOfferList.get(0).getInsertDate());
         Assert.assertEquals(jobOffer.getLocation(), givenJobOfferList.get(0).getLocation());
-        Assert.assertEquals(skill.getCetegory(), givenJobOfferList.get(0).getSkills().get(0).getCetegory());
+        Assert.assertEquals(skill.getCategory(), givenJobOfferList.get(0).getSkills().get(0).getCategory());
         Assert.assertEquals(skill.getName(), givenJobOfferList.get(0).getSkills().get(0).getName());
         Assert.assertEquals(skill.getPoints(), givenJobOfferList.get(0).getSkills().get(0).getPoints());
         Assert.assertEquals(skill.getIdSkill(), givenJobOfferList.get(0).getSkills().get(0).getIdSkill());
@@ -109,7 +123,7 @@ public class IntegrationTests {
         Assert.assertEquals(jobOffer.getIdJobOffer(), givenJobOffer.getIdJobOffer());
         Assert.assertEquals(jobOffer.getIndustry(), givenJobOffer.getIndustry());
         Assert.assertEquals(jobOffer.getLocation(), givenJobOffer.getLocation());
-        Assert.assertEquals(skill.getCetegory(), givenJobOffer.getSkills().get(0).getCetegory());
+        Assert.assertEquals(skill.getCategory(), givenJobOffer.getSkills().get(0).getCategory());
         Assert.assertEquals(skill.getName(), givenJobOffer.getSkills().get(0).getName());
         Assert.assertEquals(skill.getPoints(), givenJobOffer.getSkills().get(0).getPoints());
         Assert.assertEquals(skill.getIdSkill(), givenJobOffer.getSkills().get(0).getIdSkill());
@@ -126,7 +140,7 @@ public class IntegrationTests {
         Assert.assertEquals(jobOffer.getIndustry(), givenJobOffer.getIndustry());
         Assert.assertEquals(jobOffer.getInsertDate(), givenJobOffer.getInsertDate());
         Assert.assertEquals(jobOffer.getLocation(), givenJobOffer.getLocation());
-        Assert.assertEquals(skill.getCetegory(), givenJobOffer.getSkills().get(0).getCetegory());
+        Assert.assertEquals(skill.getCategory(), givenJobOffer.getSkills().get(0).getCategory());
         Assert.assertEquals(skill.getName(), givenJobOffer.getSkills().get(0).getName());
         Assert.assertEquals(skill.getPoints(), givenJobOffer.getSkills().get(0).getPoints());
         Assert.assertEquals(skill.getIdSkill(), givenJobOffer.getSkills().get(0).getIdSkill());
@@ -148,7 +162,7 @@ public class IntegrationTests {
 
     @Test
     public void canAddCv() {
-        String URI = "http://localhost:" + port + "/user/addCv";
+        String URI = "http://localhost:" + port + "/user/addCv?login="+userAccount.getLogin();
 
         CurriculumVitae givenCurriculumVitae = restTemplate.postForObject(URI, curriculumVitae, CurriculumVitae.class);
 
@@ -160,7 +174,7 @@ public class IntegrationTests {
         Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getType(), givenCurriculumVitae.getExternalDocuments().get(0).getType());
         Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getPermission().get(0), givenCurriculumVitae.getExternalDocuments().get(0).getPermission().get(0));
         Assert.assertEquals(curriculumVitae.getSkills().size(), givenCurriculumVitae.getSkills().size());
-        Assert.assertEquals(skill.getCetegory(), givenCurriculumVitae.getSkills().get(0).getCetegory());
+        Assert.assertEquals(skill.getCategory(), givenCurriculumVitae.getSkills().get(0).getCategory());
         Assert.assertEquals(skill.getName(), givenCurriculumVitae.getSkills().get(0).getName());
         Assert.assertEquals(skill.getPoints(), givenCurriculumVitae.getSkills().get(0).getPoints());
         Assert.assertEquals(skill.getIdSkill(), givenCurriculumVitae.getSkills().get(0).getIdSkill());

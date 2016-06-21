@@ -19,31 +19,34 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
-    
-       @Autowired
+
+    @Autowired
     private UserDetailsService userDetailsService;
 
-     @Autowired
+    @Autowired
     protected void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         ShaPasswordEncoder encoder = new ShaPasswordEncoder();
         auth.userDetailsService(userDetailsService);
-         auth.authenticationProvider(authenticationProvider());
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-http.httpBasic().and().authorizeRequests().antMatchers("/account/login", "/fileUpload",
-                    "/modules/**","/styles/**", "/assets/**", "/app.js", "/").permitAll().anyRequest().authenticated().and().csrf().disable();
+        //na potrzeby testów dodano tu ścieżki, które  nie powinny być dostępne
+        http.httpBasic().and().authorizeRequests().antMatchers("/account/login", "/fileUpload",
+                "/jobOffers/getOne", "/jobOffers/add", "/jobOffers/jobApply", "/user/addCv", "/jobOffers/getAll",
+                "/modules/**", "/styles/**", "/assets/**", "/app.js", "/").permitAll().anyRequest().authenticated().and().csrf().disable();
     }
-    
-       @Bean
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
-       @Bean
+
+    @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);

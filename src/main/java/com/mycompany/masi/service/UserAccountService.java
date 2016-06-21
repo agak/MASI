@@ -46,7 +46,7 @@ public class UserAccountService extends AccountService {
 
     @Autowired
     public UserAccountService(final UserAccountRepository userAccountRepository, final CurriculumVitaeRepository curriculumVitaeRepository, final AccountRepository accountRepository, final PasswordEncoder passwordEncoder,
-            final SkillRepository skillRepository, final LifeEventRepository lifeEventRepository, ExternalDocumentRepository externalDocumentRepository) {
+            final SkillRepository skillRepository, final LifeEventRepository lifeEventRepository, final ExternalDocumentRepository externalDocumentRepository) {
         this.userAccountRepository = userAccountRepository;
         this.curriculumVitaeRepository = curriculumVitaeRepository;
         this.accountRepository = accountRepository;
@@ -80,7 +80,7 @@ public class UserAccountService extends AccountService {
         if (curriculumVitae.getIdCurriculumVitae() != null) {
             curriculumVitaeDatabase = curriculumVitaeRepository.findOne(curriculumVitae.getIdCurriculumVitae());
         }
-        if (curriculumVitae.getLifeEvents().get(0).getIdLifeEvent() != null) {
+        if (curriculumVitae.getLifeEvents()!=null && curriculumVitae.getLifeEvents().get(0).getIdLifeEvent() != null) {
             lifeEventDatabase = lifeEventRepository.findOne(curriculumVitae.getLifeEvents().get(0).getIdLifeEvent());
         }
         //skillRepository.save(curriculumVitae.getSkills());
@@ -92,6 +92,7 @@ public class UserAccountService extends AccountService {
         UserAccount userAccount = userAccountRepository.findOneByLogin(login);
         userAccount.setCurriculumVitaes(curriculumVitae);
         userAccountRepository.save(userAccount);
+        
         return curriculumVitae;
     }
 
