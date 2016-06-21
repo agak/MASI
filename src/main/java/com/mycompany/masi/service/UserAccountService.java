@@ -29,21 +29,21 @@ public class UserAccountService extends AccountService {
     private final CurriculumVitaeRepository curriculumVitaeRepository;
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
-        private final SkillRepository skillRepository;
-         private final LifeEventRepository lifeEventRepository;
-         private final ExternalDocumentRepository externalDocumentRepository;
+    private final SkillRepository skillRepository;
+    private final LifeEventRepository lifeEventRepository;
+    private final ExternalDocumentRepository externalDocumentRepository;
 
     @Autowired
     public UserAccountService(final UserAccountRepository userAccountRepository, final CurriculumVitaeRepository curriculumVitaeRepository, final AccountRepository accountRepository, final PasswordEncoder passwordEncoder,
-           final SkillRepository skillRepository, final LifeEventRepository lifeEventRepository,  ExternalDocumentRepository externalDocumentRepository ) {
+            final SkillRepository skillRepository, final LifeEventRepository lifeEventRepository, ExternalDocumentRepository externalDocumentRepository) {
         this.userAccountRepository = userAccountRepository;
         this.curriculumVitaeRepository = curriculumVitaeRepository;
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
-        this.skillRepository=skillRepository;
-        this.lifeEventRepository=lifeEventRepository;
-        this.externalDocumentRepository=externalDocumentRepository;
-        
+        this.skillRepository = skillRepository;
+        this.lifeEventRepository = lifeEventRepository;
+        this.externalDocumentRepository = externalDocumentRepository;
+
     }
 
     public List<ExternalDocument> getAllUserExternalDocument(String userLogin) {
@@ -64,15 +64,24 @@ public class UserAccountService extends AccountService {
     }
 
     public CurriculumVitae addCv(CurriculumVitae curriculumVitae, String login) {
-        CurriculumVitae curriculumVitaeSaved;
+        CurriculumVitae curriculumVitaeDatabase = null;
+        LifeEvent lifeEventDatabase = null;
+        if (curriculumVitae.getIdCurriculumVitae() != null) {
+            curriculumVitaeDatabase = curriculumVitaeRepository.findOne(curriculumVitae.getIdCurriculumVitae());
+        }
+        if (curriculumVitae.getLifeEvents().get(0).getIdLifeEvent() != null) {
+            lifeEventDatabase = lifeEventRepository.findOne(curriculumVitae.getLifeEvents().get(0).getIdLifeEvent());
+        }
         //skillRepository.save(curriculumVitae.getSkills());
         externalDocumentRepository.save(curriculumVitae.getExternalDocuments());
         lifeEventRepository.save(curriculumVitae.getLifeEvents());
-        curriculumVitaeSaved=curriculumVitaeRepository.save(curriculumVitae);
-        UserAccount userAccount=userAccountRepository.findOneByLogin(login);
+        if (!(curriculumVitaeDatabase != null && lifeEventDatabase != null)) {
+            curriculumVitaeRepository.save(curriculumVitae);
+        }
+        UserAccount userAccount = userAccountRepository.findOneByLogin(login);
         userAccount.setCurriculumVitaes(curriculumVitae);
         userAccountRepository.save(userAccount);
-        return curriculumVitaeSaved;
+        return curriculumVitae;
     }
 
     //mockujemy istnienie kont na potrzeby testów- pózniej napisać prawdziwą metode rejestracji
@@ -80,7 +89,7 @@ public class UserAccountService extends AccountService {
     public void register() {
         Account user = new UserAccount(null, "kowal", passwordEncoder.encode("asdf"), "Jan", "Kowalski");
         Account user2 = new UserAccount(null, "nowak", passwordEncoder.encode("aa"), "Adam", "Nowak");
-        Account user3 = new UserAccount(null, "malinowski", passwordEncoder.encode("qq"), "Grzegorz", "Malinowski"); 
+        Account user3 = new UserAccount(null, "malinowski", passwordEncoder.encode("qq"), "Grzegorz", "Malinowski");
         Account user4 = new UserAccount(null, "jankowska", passwordEncoder.encode("zz"), "Alina", "Jankowska");
         Account company = new CompanyAccount(null, "serra", passwordEncoder.encode("qwerty"), "SERRA COMPANY");
         Account admin = new AdminAccount(null, "admin", passwordEncoder.encode("admin"), "Tadeusz", "Wosiak");
@@ -91,22 +100,22 @@ public class UserAccountService extends AccountService {
         accountRepository.save(company);
         accountRepository.save(admin);
     }
-    
+
     @Override
     public Account getLogUser(String login) {
-    return userAccountRepository.findOneByLogin(login);
+        return userAccountRepository.findOneByLogin(login);
     }
 
     public UserAccount editUser(UserAccount userAccount) {
-      return  userAccountRepository.save(userAccount);
+        return userAccountRepository.save(userAccount);
     }
 
     public CurriculumVitae getCvByUser(String login) {
-        CurriculumVitae curriculumVitae=null;
-        UserAccount userAccount=userAccountRepository.findOneByLogin(login);
-        if (userAccount.getCurriculumVitaes()!=null){
-            curriculumVitae=curriculumVitaeRepository.findOne(userAccount.getCurriculumVitaes().getIdCurriculumVitae());
+        CurriculumVitae curriculumVitae = null;
+        UserAccount userAccount = userAccountRepository.findOneByLogin(login);
+        if (userAccount.getCurriculumVitaes() != null) {
+            curriculumVitae = curriculumVitaeRepository.findOne(userAccount.getCurriculumVitaes().getIdCurriculumVitae());
         }
         return curriculumVitae;
-  }
+    }
 }

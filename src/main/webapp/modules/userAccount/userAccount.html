@@ -1,4 +1,5 @@
 <div ng-show="$root.loginAccount.role === 'USER_ROLE'">
+    <div ng-show="$root.correctlySavedCV" class="succesfullyMessage">Poprawnie zapisano CV</div>
     <form ng-submit="saveUserDetails()">
     <div >
         <span  ng-bind="'Imie:'"></span>
@@ -10,16 +11,16 @@
     </div>
     <div >
         <span  ng-bind="'Data urodzenia:'"></span>
-        <input type="text" id="birthDate" ng-attr-placeholder=" 'Data urodzenia' " ng-model="userAccount.birthDate" name="birthDate" />
+        <input type="date" id="birthDate" ng-attr-placeholder=" 'Data urodzenia' " ng-model="userAccount.birthDate" name="birthDate" />
     </div>
     <h4>Edukacja</h4>
     <div >
         <span  ng-bind="'Od:'"></span>
-        <input type="text" id="EstartDate" ng-attr-placeholder=" 'Od' " ng-model="education.startDate" name="EstartDate" />
+        <input type="date" id="EstartDate" ng-attr-placeholder=" 'Od' " ng-model="education.startDate" name="EstartDate" />
     </div>
     <div >
         <span  ng-bind="'Do:'"></span>
-        <input type="text" id="EendDate" ng-attr-placeholder=" 'Do' " ng-model="education.endDate" name="EendDate" />
+        <input type="date" id="EendDate" ng-attr-placeholder=" 'Do' " ng-model="education.endDate" name="EendDate" />
     </div>
     <div >
         <span  ng-bind="'Tytuł:'"></span>
@@ -32,11 +33,11 @@
     <h4>Praca</h4>
     <div >
         <span  ng-bind="'Od:'"></span>
-        <input type="text" id="JstartDate" ng-attr-placeholder=" 'Od' " ng-model="job.startDate" name="JstartDate" />
+        <input type="date" id="JstartDate" ng-attr-placeholder=" 'Od' " ng-model="job.startDate" name="JstartDate" />
     </div>
     <div >
         <span  ng-bind="'Do:'"></span>
-        <input type="text" id="JendDate" ng-attr-placeholder=" 'Do' " ng-model="job.endDate" name="JendDate" />
+        <input type="date" id="JendDate" ng-attr-placeholder=" 'Do' " ng-model="job.endDate" name="JendDate" />
     </div>
     <div >
         <span  ng-bind="'Tytuł:'"></span>
