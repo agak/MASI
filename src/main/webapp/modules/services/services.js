@@ -32,19 +32,33 @@ angular.module('dataservices', [])
                 };
 
                 dataFactory.getLogUser = function (login, role) {
-                    return $http.get(urlBase + '/account/getLogUser?login='+login+"&role="+role);
+                    return $http.get(urlBase + '/account/getLogUser?login=' + login + "&role=" + role);
                 };
-                
+
                 dataFactory.addCv = function (curriculumVitae, login) {
-                    return $http.post(urlBase + '/user/addCv?login='+login, curriculumVitae);
+                    return $http.post(urlBase + '/user/addCv?login=' + login, curriculumVitae);
                 };
-                
+
                 dataFactory.editUser = function (userAccount) {
                     return $http.post(urlBase + '/user/editUser', userAccount);
                 };
-                
-                                dataFactory.getCv = function (login) {
-                    return $http.get(urlBase + '/user/getCv?login='+login);
+
+                dataFactory.getCv = function (login) {
+                    return $http.get(urlBase + '/user/getCv?login=' + login);
+                };
+
+                dataFactory.newDocument = function (formData) {
+
+                    return         $http.post('/user/uploadFile', formData, {
+                        transformRequest: function (data, headersGetterFunction) {
+                            return data;
+                        },
+                        headers: {'Content-Type': undefined}
+                    }).success(function (data, status) {
+                        // alert("Success ... " + status);
+                    }).error(function (data, status) {
+                        // alert("Error ... " + status);
+                    });
                 };
 
                 return dataFactory;

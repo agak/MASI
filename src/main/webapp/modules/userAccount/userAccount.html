@@ -57,6 +57,19 @@
             <option ng-repeat="skill in allSkills" value="{{skill.idSkill}}">{{skill.name}} - {{skill.category}}</option>
         </select>
     </div>
+    <h4>Dodatkowe dokumenty</h4>
+        <div ng-repeat="externalDocument in curriculumVitae.externalDocuments">
+            <span  ng-bind="externalDocument.name"></span> >
+        </div>  
+    
+    
+<input type="file" name="file" ng-model="document.fileInput" 
+   id="file"  />
+<button class="btn btn-primary" ng-click="uploadFile()">
+     Dodaj dokument
+  </button> 
+ 
+
 
     <input type="submit" value="Zapisz moje CV" />
 </form>

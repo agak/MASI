@@ -20,6 +20,7 @@ mainControllers.controller('UserAccountCtrl', ['$scope', '$rootScope', 'DataFact
             DataFactory.getCv($rootScope.loginAccount.name)
                     .success(function (data, status, headers, config) {
                         $scope.curriculumVitae = data;
+                        console.dir($scope.curriculumVitae)
                         if (angular.isObject(data.lifeEvents)) {
                             $scope.education = data.lifeEvents[0];
                             $scope.job = data.lifeEvents[1];
@@ -59,13 +60,12 @@ mainControllers.controller('UserAccountCtrl', ['$scope', '$rootScope', 'DataFact
         };
 
         //$scope.curriculumVitae.lifeEvents = [];
-$rootScope.correctlySavedCV=false;
+        $rootScope.correctlySavedCV = false;
 
         $scope.saveUserDetails = function () {
             DataFactory.editUser($scope.userAccount)
                     .success(function (data, status, headers, config) {
                     }).error(function (data, status, headers, config) {
-                console.log(data);
             });
 
             if (!angular.isObject($scope.curriculumVitae)) {
@@ -82,11 +82,29 @@ $rootScope.correctlySavedCV=false;
 
             DataFactory.addCv($scope.curriculumVitae, $rootScope.loginAccount.name)
                     .success(function (data, status, headers, config) {
-                        $rootScope.correctlySavedCV=true;
+                        $rootScope.correctlySavedCV = true;
                     }).error(function (data, status, headers, config) {
                 console.log(data);
             });
         };
+
+        $scope.uploadFile = function () {
+            var formData = new FormData();
+            formData.append("file", file.files[0]);
+            DataFactory.newDocument(formData)
+                    .success(function (data, status, headers, config) {
+                        if (!angular.isObject($scope.curriculumVitae)) {
+                            $scope.curriculumVitae = {};
+                        }
+                        if (!angular.isObject($scope.curriculumVitae.externalDocuments)) {
+                            $scope.curriculumVitae.externalDocuments = [];
+                        }
+                        $scope.curriculumVitae.externalDocuments.push(data);
+                    }).error(function (data, status, headers, config) {
+                console.log(data);
+            });
+        };
+
 
 
         $scope.getLogUser();

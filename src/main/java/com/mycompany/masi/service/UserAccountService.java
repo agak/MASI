@@ -1,5 +1,6 @@
 package com.mycompany.masi.service;
 
+import com.mycompany.masi.controller.JobOffersController;
 import com.mycompany.masi.model.Account;
 import com.mycompany.masi.model.AdminAccount;
 import com.mycompany.masi.model.CompanyAccount;
@@ -13,13 +14,21 @@ import com.mycompany.masi.repository.ExternalDocumentRepository;
 import com.mycompany.masi.repository.LifeEventRepository;
 import com.mycompany.masi.repository.SkillRepository;
 import com.mycompany.masi.repository.UserAccountRepository;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Validated
@@ -32,6 +41,8 @@ public class UserAccountService extends AccountService {
     private final SkillRepository skillRepository;
     private final LifeEventRepository lifeEventRepository;
     private final ExternalDocumentRepository externalDocumentRepository;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountService.class);
 
     @Autowired
     public UserAccountService(final UserAccountRepository userAccountRepository, final CurriculumVitaeRepository curriculumVitaeRepository, final AccountRepository accountRepository, final PasswordEncoder passwordEncoder,
@@ -117,5 +128,30 @@ public class UserAccountService extends AccountService {
             curriculumVitae = curriculumVitaeRepository.findOne(userAccount.getCurriculumVitaes().getIdCurriculumVitae());
         }
         return curriculumVitae;
+    }
+
+    public ExternalDocument uploadFile(MultipartFile file) {
+        ExternalDocument externalDocument = null;
+        if (!file.isEmpty()) {
+            try {
+                String fileName = file.getOriginalFilename();
+                String[] partsiFileName = fileName.split("\\.");
+               // String newFileName = partsiFileName[0] + RandomStringUtils.randomAlphanumeric(6) + "." + partsiFileName[1];
+                String newFileName = partsiFileName[0] +"." + partsiFileName[1];
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(new File(newFileName)));
+                FileCopyUtils.copy(file.getInputStream(), stream);
+                stream.close();
+                LOGGER.info("You successfully uploaded ", file.getOriginalFilename());
+                externalDocument = new ExternalDocument(null, newFileName, null, newFileName, null);
+                externalDocumentRepository.save(externalDocument);
+
+            } catch (Exception e) {
+                LOGGER.info("You failed to upload ", new Object[]{file.getOriginalFilename(), e.getMessage()});
+            }
+        } else {
+            LOGGER.info("You failed to upload  because the file was empty", file.getOriginalFilename());
+        }
+        return externalDocument;
     }
 }
