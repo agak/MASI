@@ -1,17 +1,17 @@
 <div ng-click="cancel()" class="glyphicon glyphicon-remove  glyphicon-exit" style="z-index: 1;"></div>
 
-<div  align="center">	
+<div  align="center">
+    <div  align="center">	
     <form ng-submit="performLogin()" class="form-signin" name="loginForm" novalidate ng-init="disabled = false">
 
         <h4 class="text-middle-grey" ng-bind="'Zaloguj sie'"></h4>
         <br>		
 
-        <input type="login" id="inputLogin" placeholder="Login" required="required" autofocus="autofocus" ng-model="account.username" name="inputLogin" />
-        <input type="password" id="inputPassword" ng-attr-placeholder="{{ 'Password'  }}" required="required" ng-model="account.password" name="inputPassword" />
+        <input type="login" id="inputLogin" ng-attr-placeholder="{{'Login'}}"  autofocus="autofocus" ng-model="account.username" name="inputLogin" required >
+        <input type="password" id="inputPassword" ng-attr-placeholder="{{ 'Password'}}"  ng-model="account.password" name="inputPassword" required >
         <buton type="submit" ng-click="performLogin()" ng-enter="performLogin()" class="btn" ng-bind="'Zaloguj'"/>
     </form>
-
-    <div class="login-grey-info" ng-bind="loginError ">
-    </div>
+</div>
+    <div ng-show="loginAccount.msg">{{loginAccount.msg}}</div>
 </div>
 

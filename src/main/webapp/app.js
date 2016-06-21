@@ -22,7 +22,7 @@ angular.module('jobbox', ['jobbox.mainControllers', 'ngRoute', 'ui.router', 'dat
                             controller: 'MenuCtrl'
                         },
                         'list': {
-                            templateUrl: 'modules/jobOffers/addJobOffer.html',
+                            templateUrl: 'modules/jobOffers/jobOffers.html',
                             controller: 'JobOffersCtrl'
                         },
                          'header': {
