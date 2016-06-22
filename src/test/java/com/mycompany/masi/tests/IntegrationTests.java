@@ -154,7 +154,7 @@ public class IntegrationTests {
         String URI = "http://localhost:" + port + "/jobOffers/jobApply?login=" + userAccount.getLogin() + "&jobOfferId=" + jobOfferId + "&userMessage=" + userMessage;
 
         JobApplication givenJobApplication = restTemplate.getForObject(URI, JobApplication.class);
-        Assert.assertEquals(jobApplication.getIdUser(), givenJobApplication.getIdUser());
+        Assert.assertEquals(jobApplication.getLogin(), givenJobApplication.getLogin());
         Assert.assertEquals(jobApplication.getIdJobOffer(), givenJobApplication.getIdJobOffer());
         Assert.assertEquals(jobApplication.getIdJobApplication(), givenJobApplication.getIdJobApplication());
         Assert.assertEquals(jobApplication.getUserMessage(), givenJobApplication.getUserMessage());

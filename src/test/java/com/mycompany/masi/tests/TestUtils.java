@@ -55,7 +55,7 @@ public class TestUtils {
 
     static JobApplication createJobApplication() {
         Date now = new Date();
-        JobApplication jobApplication = new JobApplication((long) 1, (long) 1, (long) 1, "Jestem zainteresowany ta ofertą", now);
+        JobApplication jobApplication = new JobApplication((long) 1, (long) 1, "kowal", "Jestem zainteresowany ta ofertą", now);
         return jobApplication;
     }
 
