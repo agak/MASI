@@ -1,76 +1,98 @@
 <div ng-show="$root.loginAccount.role === 'USER_ROLE'">
     <div ng-show="$root.correctlySavedCV" class="succesfullyMessage">Poprawnie zapisano CV</div>
     <form ng-submit="saveUserDetails()">
-    <div >
-        <span  ng-bind="'Imie:'"></span>
-        <input type="text" id="firstName" ng-attr-placeholder=" 'Imie' " ng-model="userAccount.firstName" name="firstName" />
-    </div>
-    <div >
-        <span  ng-bind="'Nazwisko:'"></span>
-        <input type="text" id="secondName" ng-attr-placeholder=" 'Nazwisko' " ng-model="userAccount.secondName" name="secondName" />
-    </div>
-    <div >
-        <span  ng-bind="'Data urodzenia:'"></span>
-        <input type="date" id="birthDate" ng-attr-placeholder=" 'Data urodzenia' " ng-model="userAccount.birthDate" name="birthDate" />
-    </div>
-    <h4>Edukacja</h4>
-    <div >
-        <span  ng-bind="'Od:'"></span>
-        <input type="date" id="EstartDate" ng-attr-placeholder=" 'Od' " ng-model="education.startDate" name="EstartDate" />
-    </div>
-    <div >
-        <span  ng-bind="'Do:'"></span>
-        <input type="date" id="EendDate" ng-attr-placeholder=" 'Do' " ng-model="education.endDate" name="EendDate" />
-    </div>
-    <div >
-        <span  ng-bind="'Tytuł:'"></span>
-        <input type="text" id="Etitle" ng-attr-placeholder=" 'Tytuł' " ng-model="education.title" name="Etitle" />
-    </div>
-    <div >
-        <span  ng-bind="'Opis:'"></span>
-        <textarea id="Edescription" ng-attr-placeholder=" 'Opis' " ng-model="education.description" name="Edescription" ></textarea>
-    </div>
-    <h4>Praca</h4>
-    <div >
-        <span  ng-bind="'Od:'"></span>
-        <input type="date" id="JstartDate" ng-attr-placeholder=" 'Od' " ng-model="job.startDate" name="JstartDate" />
-    </div>
-    <div >
-        <span  ng-bind="'Do:'"></span>
-        <input type="date" id="JendDate" ng-attr-placeholder=" 'Do' " ng-model="job.endDate" name="JendDate" />
-    </div>
-    <div >
-        <span  ng-bind="'Tytuł:'"></span>
-        <input type="text" id="Jtitle" ng-attr-placeholder=" 'Tytuł' " ng-model="job.title" name="Jtitle" />
-    </div>
-    <div >
-        <span  ng-bind="'Opis:'"></span>
-        <textarea type="text" id="Jdescription" ng-attr-placeholder=" 'Opis' " ng-model="job.description" name="Jdescription" ></textarea>
-    </div>
-    <div >
-        <label for="skills"  ng-bind=" 'Umiejętności:'"></label>
-        <div ng-repeat="skill in curriculumVitae.skills">
-            <span  ng-bind="skill.name"></span> - <span  ng-bind="skill.category"></span>  <span>  </span>
-        </div>  
+        
+        
+    <div class="row">
+        <div class="col-md-5">
+            <h4>Dane osobowe</h4>
+            <div >
+                <span  ng-bind="'Imie:'"></span>
+                <input type="text" id="firstName" ng-attr-placeholder=" 'Imie' " ng-model="userAccount.firstName" name="firstName" />
+            </div>
+            <div >
+                <p>&nbsp;</p>
+                <span  ng-bind="'Nazwisko:'"></span>
+                <input type="text" id="secondName" ng-attr-placeholder=" 'Nazwisko' " ng-model="userAccount.secondName" name="secondName" />
+            </div>
+            <div >
+                <p>&nbsp;</p>
+                <span  ng-bind="'Data urodzenia:'"></span>
+                <input type="date" id="birthDate" ng-attr-placeholder=" 'Data urodzenia' " ng-model="userAccount.birthDate" name="birthDate" />
+            </div>
+            <p>&nbsp;</p>
+            <h4>Edukacja</h4>
+            <div >
+                <span  ng-bind="'Od:'"></span>
+                <input type="date" id="EstartDate" ng-attr-placeholder=" 'Od' " ng-model="education.startDate" name="EstartDate" />
+            
+                <span  ng-bind="' Do:'"></span>
+                <input type="date" id="EendDate" ng-attr-placeholder=" 'Do' " ng-model="education.endDate" name="EendDate" />
+            </div>
+            <div >
+                <p>&nbsp;</p>
+                <span  ng-bind="'Tytuł:'"></span>
+                <input type="text" id="Etitle" ng-attr-placeholder=" 'Tytuł' " ng-model="education.title" name="Etitle" size="41" />
+            </div>
+            <div >
+                <p>&nbsp;</p>
+                <p><span  ng-bind="'Opis:'"></span></p>
+                <textarea id="Edescription" ng-attr-placeholder=" 'Opis' " ng-model="education.description" name="Edescription"  cols="50" rows="3"></textarea>
+            </div>
+        </div>
+    
+        
+        <div class="col-md-5">
+            <h4>Praca</h4>
+            <div >
+                <span  ng-bind="'Od:'"></span>
+                <input type="date" id="JstartDate" ng-attr-placeholder=" 'Od' " ng-model="job.startDate" name="JstartDate" />
+            
+                <span  ng-bind="'Do:'"></span>
+                <input type="date" id="JendDate" ng-attr-placeholder=" 'Do' " ng-model="job.endDate" name="JendDate" />
+            </div>
+            <div >
+                <p>&nbsp;</p>
+                <span  ng-bind="'Tytuł:'"></span>
+                <input type="text" id="Jtitle" ng-attr-placeholder=" 'Tytuł' " ng-model="job.title" name="Jtitle" />
+            </div>
+            <div >
+                <p>&nbsp;</p>
+                <p><span  ng-bind="'Opis:'"></span></p>
+                <textarea type="text" id="Jdescription" ng-attr-placeholder=" 'Opis' " ng-model="job.description" name="Jdescription" cols="50" rows="3"></textarea>
+            </div>
+            <div >
+                <p>&nbsp;</p>
+                <label for="skills"  ng-bind=" 'Umiejętności:'"></label>
+                <div ng-repeat="skill in curriculumVitae.skills">
+                    <span  ng-bind="skill.name"></span> - <span  ng-bind="skill.category"></span>  <span>  </span>
+                </div>  
 
-        <select name="skillsSelect" id="skillsSelect" ng-model="skillSelected" ng-change="skillSelect()">
-            <option ng-repeat="skill in allSkills" value="{{skill.idSkill}}">{{skill.name}} - {{skill.category}}</option>
-        </select>
-    </div>
-    <h4>Dodatkowe dokumenty</h4>
-        <div ng-repeat="externalDocument in curriculumVitae.externalDocuments">
-            <span  ng-bind="externalDocument.name"></span> >
-        </div>  
+                <select name="skillsSelect" id="skillsSelect" ng-model="skillSelected" ng-change="skillSelect()">
+                    <option ng-repeat="skill in allSkills" value="{{skill.idSkill}}">{{skill.name}} - {{skill.category}}</option>
+                </select>
+            </div>
+            
+            
+            <p>&nbsp;</p>
+            <h4>Dodatkowe dokumenty</h4>
+            <div ng-repeat="externalDocument in curriculumVitae.externalDocuments">
+                <span  ng-bind="externalDocument.name"></span> >
+            </div>  
     
-    
-<input type="file" name="file" ng-model="document.fileInput" 
-   id="file"  />
-<button class="btn btn-primary" ng-click="uploadFile()">
-     Dodaj dokument
-  </button> 
+        
+            <input type="file" name="file" ng-model="document.fileInput" id="file"  />
+            
+            <p>&nbsp;</p>
+            
+            <button class="btn btn-primary" ng-click="uploadFile()">Dodaj dokument</button> 
  
-
-
-    <input type="submit" value="Zapisz moje CV" />
+            <input type="submit" value="Zapisz moje CV" />
+            
+            
+            
+        </div>
+    </div>
+    
 </form>
 </div>
