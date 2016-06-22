@@ -151,7 +151,8 @@ public class IntegrationTests {
         long userId = 1;
         long jobOfferId = 1;
         String userMessage = "Jestem zainteresowany ta ofertą";
-        String URI = "http://localhost:" + port + "/jobOffers/jobApply?login=" + userAccount.getLogin() + "&jobOfferId=" + jobOfferId + "&userMessage=" + userMessage;
+        String URI = "http://localhost:" + port + "/jobOffers/jobApply?login=" + userAccount.getLogin() 
+                + "&jobOfferId=" + jobOfferId + "&userMessage=" + userMessage;
 
         JobApplication givenJobApplication = restTemplate.getForObject(URI, JobApplication.class);
         Assert.assertEquals(jobApplication.getLogin(), givenJobApplication.getLogin());
@@ -168,11 +169,16 @@ public class IntegrationTests {
 
         Assert.assertEquals(curriculumVitae.getIdCurriculumVitae(), givenCurriculumVitae.getIdCurriculumVitae());
         Assert.assertEquals(curriculumVitae.getExternalDocuments().size(), givenCurriculumVitae.getExternalDocuments().size());
-        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getIdExternalDocument(), givenCurriculumVitae.getExternalDocuments().get(0).getIdExternalDocument());
-        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getLocationUrl(), givenCurriculumVitae.getExternalDocuments().get(0).getLocationUrl());
-        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getName(), givenCurriculumVitae.getExternalDocuments().get(0).getName());
-        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getType(), givenCurriculumVitae.getExternalDocuments().get(0).getType());
-        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getPermission().get(0), givenCurriculumVitae.getExternalDocuments().get(0).getPermission().get(0));
+        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getIdExternalDocument(), 
+                givenCurriculumVitae.getExternalDocuments().get(0).getIdExternalDocument());
+        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getLocationUrl(), 
+                givenCurriculumVitae.getExternalDocuments().get(0).getLocationUrl());
+        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getName(),
+                givenCurriculumVitae.getExternalDocuments().get(0).getName());
+        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getType(), 
+                givenCurriculumVitae.getExternalDocuments().get(0).getType());
+        Assert.assertEquals(curriculumVitae.getExternalDocuments().get(0).getPermission().get(0), 
+                givenCurriculumVitae.getExternalDocuments().get(0).getPermission().get(0));
         Assert.assertEquals(curriculumVitae.getSkills().size(), givenCurriculumVitae.getSkills().size());
         Assert.assertEquals(skill.getCategory(), givenCurriculumVitae.getSkills().get(0).getCategory());
         Assert.assertEquals(skill.getName(), givenCurriculumVitae.getSkills().get(0).getName());
