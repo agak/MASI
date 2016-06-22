@@ -61,5 +61,9 @@ angular.module('dataservices', [])
                     });
                 };
 
+                dataFactory.jobApply = function (login, jobOfferId) {
+                    return $http.get(urlBase + '/jobOffers/jobApply?login=' + login + "&jobOfferId=" + jobOfferId);
+                };
+
                 return dataFactory;
             }]);

@@ -49,6 +49,16 @@ mainControllers.controller('JobOffersCtrl', ['$scope', '$rootScope', 'DataFactor
             });
         };
 
+        $scope.jobApply = function (jobOfferId) {
+            DataFactory.jobApply($rootScope.loginAccount.name, jobOfferId)
+                    .success(function (data, status, headers, config) {
+                        $rootScope.correctlyApply=true;
+                    }).error(function (data, status, headers, config) {
+                console.log(data);
+            });
+        };
+
+
         $scope.getAllJobOffers();
         $scope.getAllSkills();
 

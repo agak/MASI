@@ -59,9 +59,9 @@ public class JobOffersController {
 
     @RequestMapping(value = "/jobApply", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public JobApplication jobApply(@RequestParam(value = "userId", required = true) long userId, @RequestParam(value = "jobOfferId", required = true) long jobOfferId, @RequestParam(value = "userMessage", required = true) String userMessage) {
+    public JobApplication jobApply(@RequestParam(value = "login", required = true) String login, @RequestParam(value = "jobOfferId", required = true) long jobOfferId, @RequestParam(value = "userMessage", required = false) String userMessage) {
         LOGGER.info("Start jobApply  :: ");
-        return jobOffersService.jobApply(userId, jobOfferId, userMessage);
+        return jobOffersService.jobApply(login, jobOfferId, userMessage);
 
     }
     

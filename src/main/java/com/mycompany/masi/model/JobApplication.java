@@ -33,7 +33,7 @@ public class JobApplication implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idJobApplication;
     private Long idJobOffer;
-    private Long idUser;
+    private String login;
     private String userMessage;
 
     @CreatedDate
@@ -41,9 +41,9 @@ public class JobApplication implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date applicationDate;
 
-    public JobApplication(Long idJobOffer, Long idUser, String userMessage) {
+    public JobApplication(Long idJobOffer, String login, String userMessage) {
         this.idJobOffer = idJobOffer;
-        this.idUser = idUser;
+        this.login = login;
         this.userMessage = userMessage;
     }
 

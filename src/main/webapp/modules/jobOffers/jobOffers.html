@@ -1,5 +1,6 @@
 <div  >
     <div ng-show="$root.correctlyAddedJobOffer" class="succesfullyMessage">Poprawnie dodano ofertę pracy</div>
+     <div ng-show="$root.correctlyApply" class="succesfullyMessage">Poprawnie zaaplikowano na ofertę pracy</div>
     <div ng-repeat="oneJobOffer in jobOffersAll">
         <div class="panel panel-default">
             <div >
@@ -25,6 +26,10 @@
      </div>  
             </div>
 
+            <button class="btn btn-primary" ng-click="jobApply(oneJobOffer.idJobOffer)">
+     Aplikuj
+  </button> 
+            
         </div>
     </div>
 
